@@ -5,7 +5,7 @@ CREATE TABLE Account (
 	DateOfBirth int,
 	Deposit int,
 	PRIMARY KEY (AccountID),
-	FOREGIN KEY (Users) REFERENCES Users (Users)
+	FOREIGN KEY (Users) REFERENCES Users (Users)
 );
 
 
