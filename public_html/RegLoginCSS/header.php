@@ -1,11 +1,12 @@
 <head>
-    <title>Bank App</title>
+    <title>Dhruval's Site</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <?php
 require("config.php");
 session_start();
 ?>
+<title> BANK APP </tile>
 <nav>
     <ul>
         <li>
