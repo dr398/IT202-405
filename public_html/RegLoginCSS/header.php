@@ -1,7 +1,6 @@
 <head>
     <title>Dhruval's Site</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title> BANK APP </tile>
 </head>
 <?php
 require("config.php");
