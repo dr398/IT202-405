@@ -1,4 +1,4 @@
-<title> BANK APPLICATION </tile>
+
 <?php
 include("header.php");
 ?>
