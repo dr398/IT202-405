@@ -11,7 +11,7 @@
 <?php
 if(isset($_POST["created"])){
     $name = $_POST["name"];
-    $quantity = $_POST["deposit"];
+    $deposit = $_POST["deposit"];
     if(!empty($name) && !empty($deposit)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
