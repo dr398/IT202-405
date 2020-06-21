@@ -1,9 +1,10 @@
-CREATE TABLE Accounts (
+CREATE TABLE Accounts(
     id int auto_increment,
-    name varchar(20) unique,
-    balance int default 0,
-    date_of_birth int default 0,
-    created datetime default current_timestamp,
-    modified datetime default current_timestamp onupdate current_timestamp,
-    primary key (id)
+    email varchar(60) NOT NULL unique,
+    balance int default  0,
+    deposit decimal(10,2) default  0.00,
+    description TEXT,
+    modified datetime default current_timestamp  on update current_timestamp ,
+    created datetime default  current_timestamp,
+    primary key (id),
 )
