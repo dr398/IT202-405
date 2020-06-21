@@ -4,44 +4,44 @@ $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
 $thingId = -1;
 $result = array();
-require("common.inc.php");
-if(isset($_GET["thingId"])){
-    $thingId = $_GET["thingId"];
-    $stmt = $db->prepare("SELECT * FROM Emails where id = :id");
-    $stmt->execute([":id"=>$thingId]);
+function get($arr, $key){
+    if(isset($arr[$key])){
+        return $arr[$key];
+    }
+    return "";
+}
+if(isset($_GET["accountId"])){
+    $thingId = $_GET["accountId"];
+    $stmt = $db->prepare("SELECT * FROM Accounts where id = :id");
+    $stmt->execute([":id"=>$accountId]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 else{
-    echo "No account selected for change.";
+    echo "No accountId provided in url.";
 }
 ?>
 
-    <form method="POST">
-        <label for="thing">New Product
-            <input type="text" id="email" name="email" value="<?php echo get($result, "email");?>" />
-        </label>
-        <label for="d">Deposit
-            <input type="number" id="d" name="deposit" value="<?php echo get($result, "deposit");?>" />
-        </label>
-        <label for="balance">Balance
-            <input type="number" id="b" name="balance" value="<?php echo get($result, "balance");?>" />
-        </label>
-        <input type="submit" name="updated" value="Update account"/>
-    </form>
+<form method="POST">
+	<label for="account">Account Name
+	<input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" />
+	</label>
+	<label for="d">Deposit
+	<input type="number" id="d" name="deposit" value="<?php echo get($result, "deposit");?>" />
+	</label>
+	<input type="submit" name="updated" value="Update Account"/>
+</form>
 
 <?php
 if(isset($_POST["updated"])){
-    $email = $_POST["email"];
+    $name = $_POST["name"];
     $deposit = $_POST["deposit"];
-    $balance = $_POST["balance"];
-    if(!empty($email) && !empty($deposit) && !empty($balance)){
+    if(!empty($name) && !empty($deposit)){
         try{
-            $stmt = $db->prepare("UPDATE Emails set email = :email, deposit=:deposit, balance=:balance where id=:id");
+            $stmt = $db->prepare("UPDATE Accounts set name = :name, deposit=:deposit where id=:id");
             $result = $stmt->execute(array(
-                ":email" => $email,
+                ":name" => $name,
                 ":deposit" => $deposit,
-                ":balance" => $balance,
-                ":id" => $thingId
+                ":id" => $accountId
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -50,10 +50,10 @@ if(isset($_POST["updated"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully updated thing: " . $email;
+                    echo "Successfully updated account: " . $name;
                 }
                 else{
-                    echo "Error updating record";
+                    echo "Error updating account";
                 }
             }
         }
@@ -62,7 +62,7 @@ if(isset($_POST["updated"])){
         }
     }
     else{
-        echo "Fields must not be empty.";
+        echo "Name and deposit must not be empty.";
     }
 }
 ?>
