@@ -5,5 +5,5 @@ CREATE TABLE Accounts(
     deposit decimal(10,2) default  0.00,
     modified datetime default current_timestamp  on update current_timestamp ,
     created datetime default  current_timestamp,
-    primary key (id),
-),
+    primary key (id)
+)
