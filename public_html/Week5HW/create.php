@@ -19,8 +19,8 @@ if(isset($_POST['created'])){
             $db = new PDO($connection_string, $dbuser, $dbpass);
             $stmt = $db->prepare("INSERT INTO Emails (email, deposit) VALUES (:email, :deposit)");
             $result = $stmt->execute(array(
-                ':email' => $product,
-                ':depsoit' => $price
+                ':email' => $email,
+                ':depsoit' => $deposit
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -29,7 +29,7 @@ if(isset($_POST['created'])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully created new account: " . $product;
+                    echo "Successfully created new account: " . $email;
                 }
                 else{
                     echo "Error creating new account";
