@@ -2,8 +2,8 @@
 	<label for="account">Account Name
 	<input type="text" id="account" name="name" />
 	</label>
-	<label for="d">Deposit
-	<input type="number" id="d" name="deposit" />
+	<label for="b">Balance
+	<input type="number" id="b" name="balance" />
 	</label>
 	<input type="submit" name="created" value="Create Account"/>
 </form>
@@ -11,16 +11,16 @@
 <?php
 if(isset($_POST["created"])){
     $name = $_POST["name"];
-    $deposit = $_POST["deposit"];
-    if(!empty($name) && !empty($deposit)){
+    $balance = $_POST["balance"];
+    if(!empty($name) && !empty($balance)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Accounts (name, deposit) VALUES (:name, :deposit)");
+            $stmt = $db->prepare("INSERT INTO Accounts (name, balance) VALUES (:name, :balance)");
             $result = $stmt->execute(array(
                 ":name" => $name,
-                ":deposit" => $deposit
+                ":balance" => $balance
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -41,7 +41,7 @@ if(isset($_POST["created"])){
         }
     }
     else{
-        echo "Name and deposit must not be empty.";
+        echo "Name and balance must not be empty.";
     }
 }
 ?>
