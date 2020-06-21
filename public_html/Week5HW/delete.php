@@ -28,8 +28,8 @@ else{
 	<label for="account">Account Name
 	<input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" />
 	</label>
-	<label for="d">Deposit
-	<input type="number" id="d" name="deposit" value="<?php echo get($result, "deposit");?>" />
+	<label for="b">Balance
+	<input type="number" id="b" name="balance" value="<?php echo get($result, "balance");?>" />
 	</label>
     <?php if($accountId > 0):?>
 	    <input type="submit" name="updated" value="Update Account"/>
@@ -43,8 +43,8 @@ else{
 if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"])){
     $delete = isset($_POST["delete"]);
     $name = $_POST["name"];
-    $deposit = $_POST["deposit"];
-    if(!empty($name) && !empty($deposit)){
+    $balance = $_POST["balance"];
+    if(!empty($name) && !empty($balance)){
         try{
             if($accountId > 0) {
                 if($delete){
@@ -54,19 +54,19 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
                     ));
                 }
                 else {
-                    $stmt = $db->prepare("UPDATE Accounts set name = :name, deposit=:deposit where id=:id");
+                    $stmt = $db->prepare("UPDATE Accounts set name = :name, balance=:balance where id=:id");
                     $result = $stmt->execute(array(
                         ":name" => $name,
-                        ":deposit" => $deposit,
+                        ":balance" => $balance,
                         ":id" => $accountId
                     ));
                 }
             }
             else{
-                $stmt = $db->prepare("INSERT INTO Accounts (name, deposit) VALUES (:name, :deposit)");
+                $stmt = $db->prepare("INSERT INTO Accounts (name, balance) VALUES (:name, :balance)");
                 $result = $stmt->execute(array(
                     ":name" => $name,
-                    ":deposit" => $deposit
+                    ":balance" => $balance
                 ));
             }
             $e = $stmt->errorInfo();
@@ -88,7 +88,7 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
         }
     }
     else{
-        echo "Name and deposit must not be empty.";
+        echo "Name and balance must not be empty.";
     }
 }
 ?>
