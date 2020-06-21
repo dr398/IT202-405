@@ -6,4 +6,4 @@ CREATE TABLE Accounts(
     modified datetime default current_timestamp  on update current_timestamp ,
     created datetime default  current_timestamp,
     primary key (id),
-)
+),
