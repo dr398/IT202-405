@@ -1,26 +1,26 @@
 <form method="POST">
-    <label for="email">Email
-        <input type="text" id="email" name="email" />
-    </label>
-    <label for="d">Deposit
-        <input type="number" id="d" name="deposit" />
-    </label>
-    <input type="submit" name="created" value="Submit New Account"/>
+	<label for="account">Account Name
+	<input type="text" id="account" name="name" />
+	</label>
+	<label for="d">Deposit
+	<input type="number" id="d" name="deposit" />
+	</label>
+	<input type="submit" name="created" value="Create Account"/>
 </form>
 
 <?php
-if(isset($_POST['created'])){
-    $email = $_POST['email'];
-    $deposit = $_POST['deposit'];
-    if(!empty($email) && !empty($deposit)){
+if(isset($_POST["created"])){
+    $name = $_POST["name"];
+    $quantity = $_POST["deposit"];
+    if(!empty($name) && !empty($deposit)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Emails (email, deposit) VALUES (:email, :deposit)");
+            $stmt = $db->prepare("INSERT INTO Accounts (name, deposit) VALUES (:name, :deposit)");
             $result = $stmt->execute(array(
-                ':email' => $email,
-                ':depsoit' => $deposit
+                ":name" => $name,
+                ":deposit" => $deposit
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -29,10 +29,10 @@ if(isset($_POST['created'])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully created new account: " . $email;
+                    echo "Successfully created new account: " . $name;
                 }
                 else{
-                    echo "Error creating new account";
+                    echo "Error creating account";
                 }
             }
         }
@@ -41,7 +41,7 @@ if(isset($_POST['created'])){
         }
     }
     else{
-        echo "Email and deposit must not be empty.";
+        echo "Name and deposit must not be empty.";
     }
 }
 ?>
