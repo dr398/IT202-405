@@ -2,66 +2,93 @@
 require("config.php");
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
-$thingId = -1;
+$accountId = -1;
 $result = array();
-require("common.inc.php");
-if(isset($_GET["thingId"])){
-    $thingId = $_GET["thingId"];
-    $stmt = $db->prepare("SELECT * FROM Emails where id = :id");
-    $stmt->execute([":id"=>$thingId]);
+function get($arr, $key){
+    if(isset($arr[$key])){
+        return $arr[$key];
+    }
+    return "";
+}
+if(isset($_GET["accountId"])){
+    $accountId = $_GET["accountId"];
+    $stmt = $db->prepare("SELECT * FROM Accounts where id = :id");
+    $stmt->execute([":id"=>$accountId]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    if(!$result){
+        $accountId = -1;
+    }
 }
 else{
-    echo "No account selected for deletion.";
+    echo "No accountId provided in url.";
 }
 ?>
 
-    <form method="POST">
-        <label for="thing">New Account
-            <input type="text" id="email" name="email" value="<?php echo get($result, "email");?>" />
-        </label>
-        <label for="<br>d">Deposit
-            <input type="number" id="d" name="deposit" value="<?php echo get($result, "deposit");?>" />
-        </label>
-        <label for="<br>balance">Balance
-            <input type="number" id="q" name="balance" value="<?php echo get($result, "balance");?>" />
-        </label>
-        <input type="submit" name="delete" value="Delete account"/>
-    </form>
+<form method="POST">
+	<label for="account">Account Name
+	<input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" />
+	</label>
+	<label for="d">Deposit
+	<input type="number" id="d" name="deposit" value="<?php echo get($result, "deposit");?>" />
+	</label>
+    <?php if($accountId > 0):?>
+	    <input type="submit" name="updated" value="Update Account"/>
+        <input type="submit" name="delete" value="Delete Account"/>
+    <?php elseif ($accountId < 0):?>
+        <input type="submit" name="created" value="Create Account"/>
+    <?php endif;?>
+</form>
 
 <?php
-if(isset($_POST["delete"])){
+if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"])){
     $delete = isset($_POST["delete"]);
-    $product = $_POST["email"];
-    if(!empty($product)) {
-        try {
-            if ($thingId > 0) {
-                $stmt = $db->prepare("DELETE from Emails where id=:id");
+    $name = $_POST["name"];
+    $deposit = $_POST["deposit"];
+    if(!empty($name) && !empty($deposit)){
+        try{
+            if($accountId > 0) {
+                if($delete){
+                    $stmt = $db->prepare("DELETE from Accounts where id=:id");
+                    $result = $stmt->execute(array(
+                        ":id" => $accountId
+                    ));
+                }
+                else {
+                    $stmt = $db->prepare("UPDATE Accounts set name = :name, deposit=:deposit where id=:id");
+                    $result = $stmt->execute(array(
+                        ":name" => $name,
+                        ":deposit" => $deposit,
+                        ":id" => $accountId
+                    ));
+                }
+            }
+            else{
+                $stmt = $db->prepare("INSERT INTO Accounts (name, deposit) VALUES (:name, :deposit)");
                 $result = $stmt->execute(array(
-                    ":id" => $thingId
+                    ":name" => $name,
+                    ":deposit" => $deposit
                 ));
-            } else {
-                echo "Email " . $email . " does not exist.";
             }
             $e = $stmt->errorInfo();
-            if ($e[0] != "00000") {
+            if($e[0] != "00000"){
                 echo var_export($e, true);
-            } else {
+            }
+            else{
                 echo var_export($result, true);
-                if ($result) {
-                    echo "Successfully deleted: " . $email;
-                } else {
-                    echo "Error deleting email";
+                if ($result){
+                    echo "Successfully interacted with account: " . $name;
+                }
+                else{
+                    echo "Error interacting account";
                 }
             }
         }
-        catch
-            (Exception $e){
-                echo $e->getMessage();
-            }
+        catch (Exception $e){
+            echo $e->getMessage();
+        }
     }
     else{
-        echo "Email must not be empty.";
+        echo "Name and deposit must not be empty.";
     }
 }
 ?>
