@@ -2,7 +2,7 @@
 require("config.php");
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
-$thingId = -1;
+$accountId = -1;
 $result = array();
 function get($arr, $key){
     if(isset($arr[$key])){
@@ -11,7 +11,7 @@ function get($arr, $key){
     return "";
 }
 if(isset($_GET["accountId"])){
-    $thingId = $_GET["accountId"];
+    $accountId = $_GET["accountId"];
     $stmt = $db->prepare("SELECT * FROM Accounts where id = :id");
     $stmt->execute([":id"=>$accountId]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -25,8 +25,8 @@ else{
 	<label for="account">Account Name
 	<input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" />
 	</label>
-	<label for="d">Deposit
-	<input type="number" id="d" name="deposit" value="<?php echo get($result, "deposit");?>" />
+	<label for="b">Balance
+	<input type="number" id="b" name="balance" value="<?php echo get($result, "balance");?>" />
 	</label>
 	<input type="submit" name="updated" value="Update Account"/>
 </form>
@@ -34,13 +34,13 @@ else{
 <?php
 if(isset($_POST["updated"])){
     $name = $_POST["name"];
-    $deposit = $_POST["deposit"];
+    $balance = $_POST["balance"];
     if(!empty($name) && !empty($deposit)){
         try{
-            $stmt = $db->prepare("UPDATE Accounts set name = :name, deposit=:deposit where id=:id");
+            $stmt = $db->prepare("UPDATE Accounts set name = :name, balance=:balance where id=:id");
             $result = $stmt->execute(array(
                 ":name" => $name,
-                ":deposit" => $deposit,
+                ":balance" => $balance,
                 ":id" => $accountId
             ));
             $e = $stmt->errorInfo();
@@ -62,7 +62,7 @@ if(isset($_POST["updated"])){
         }
     }
     else{
-        echo "Name and deposit must not be empty.";
+        echo "Name and balance must not be empty.";
     }
 }
 ?>
