@@ -1,26 +1,26 @@
 <form method="POST">
-    <label for="product">New Product
-        <input type="text" id="product" name="product" />
+    <label for="email">Email
+        <input type="text" id="email" name="email" />
     </label>
-    <label for="p">Price
-        <input type="number" id="p" name="price" />
+    <label for="d">Deposit
+        <input type="number" id="d" name="deposit" />
     </label>
-    <input type="submit" name="created" value="Submit New Product"/>
+    <input type="submit" name="created" value="Submit New Account"/>
 </form>
 
 <?php
 if(isset($_POST['created'])){
-    $product = $_POST['product'];
-    $price = $_POST['price'];
-    if(!empty($product) && !empty($price)){
+    $product = $_POST['email'];
+    $price = $_POST['deposit'];
+    if(!empty($email) && !empty($deposit)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Products (product, price) VALUES (:product, :price)");
+            $stmt = $db->prepare("INSERT INTO Emails (email, deposit) VALUES (:email, :deposit)");
             $result = $stmt->execute(array(
-                ':product' => $product,
-                ':price' => $price
+                ':email' => $product,
+                ':depsoit' => $price
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -29,10 +29,10 @@ if(isset($_POST['created'])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully created new product: " . $product;
+                    echo "Successfully created new account: " . $product;
                 }
                 else{
-                    echo "Error creating new product";
+                    echo "Error creating new account";
                 }
             }
         }
@@ -41,7 +41,7 @@ if(isset($_POST['created'])){
         }
     }
     else{
-        echo "Product and price must not be empty.";
+        echo "Email and deposit must not be empty.";
     }
 }
 ?>
