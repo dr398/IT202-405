@@ -2,7 +2,7 @@
 require("config.php");
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
-$thingId = -1;
+$accountId = -1;
 $result = array();
 function get($arr, $key){
     if(isset($arr[$key])){
@@ -10,53 +10,53 @@ function get($arr, $key){
     }
     return "";
 }
-if(isset($_GET["thingId"])){
-    $thingId = $_GET["thingId"];
-    $stmt = $db->prepare("SELECT * FROM Things where id = :id");
-    $stmt->execute([":id"=>$thingId]);
+if(isset($_GET["accountId"])){
+    $accountId = $_GET["accountId"];
+    $stmt = $db->prepare("SELECT * FROM Accounts where id = :id");
+    $stmt->execute([":id"=>$accountId]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     if(!$result){
-        $thingId = -1;
+        $accountId = -1;
     }
 }
 else{
-    echo "No thingId provided in url, don't forget this or sample won't work.";
+    echo "No accountId provided in url.";
 }
 ?>
 
 <form method="POST">
-	<label for="thing">Thing Name
-	<input type="text" id="thing" name="name" value="<?php echo get($result, "name");?>" />
+	<label for="account">Account Name
+	<input type="text" id="account" name="name" value="<?php echo get($result, "name");?>" />
 	</label>
-	<label for="q">Quantity
-	<input type="number" id="q" name="quantity" value="<?php echo get($result, "quantity");?>" />
+	<label for="b">Balance
+	<input type="number" id="b" name="balance" value="<?php echo get($result, "balance");?>" />
 	</label>
-    <?php if($thingId > 0):?>
-	    <input type="submit" name="updated" value="Update Thing"/>
-    <?php elseif ($thingId < 0):?>
-        <input type="submit" name="created" value="Create Thing"/>
+    <?php if($accountId > 0):?>
+	    <input type="submit" name="updated" value="Update Account"/>
+    <?php elseif ($accountId < 0):?>
+        <input type="submit" name="created" value="Create Account"/>
     <?php endif;?>
 </form>
 
 <?php
 if(isset($_POST["updated"]) || isset($_POST["created"])){
     $name = $_POST["name"];
-    $quantity = $_POST["quantity"];
-    if(!empty($name) && !empty($quantity)){
+    $balance = $_POST["balance"];
+    if(!empty($name) && !empty($balance)){
         try{
-            if($thingId > 0) {
-                $stmt = $db->prepare("UPDATE Things set name = :name, quantity=:quantity where id=:id");
+            if($AccountId > 0) {
+                $stmt = $db->prepare("UPDATE Accounts set name = :name, balance=:balance where id=:id");
                 $result = $stmt->execute(array(
                     ":name" => $name,
-                    ":quantity" => $quantity,
-                    ":id" => $thingId
+                    ":balance" => $balance,
+                    ":id" => $accountId
                 ));
             }
             else{
-                $stmt = $db->prepare("INSERT INTO Things (name, quantity) VALUES (:name, :quantity)");
+                $stmt = $db->prepare("INSERT INTO Accounts (name, balance) VALUES (:name, :balance)");
                 $result = $stmt->execute(array(
                     ":name" => $name,
-                    ":quantity" => $quantity
+                    ":balance" => $balance
                 ));
             }
             $e = $stmt->errorInfo();
@@ -66,10 +66,10 @@ if(isset($_POST["updated"]) || isset($_POST["created"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully inserted or updated thing: " . $name;
+                    echo "Successfully inserted or updated account: " . $name;
                 }
                 else{
-                    echo "Error inserting or updating record";
+                    echo "Error inserting or updating account";
                 }
             }
         }
@@ -78,7 +78,7 @@ if(isset($_POST["updated"]) || isset($_POST["created"])){
         }
     }
     else{
-        echo "Name and quantity must not be empty.";
+        echo "Name and balance must not be empty.";
     }
 }
 ?>
