@@ -35,7 +35,7 @@ else{
 if(isset($_POST["updated"])){
     $name = $_POST["name"];
     $balance = $_POST["balance"];
-    if(!empty($name) && !empty($deposit)){
+    if(!empty($name) && !empty($balance)){
         try{
             $stmt = $db->prepare("UPDATE Accounts set name = :name, balance=:balance where id=:id");
             $result = $stmt->execute(array(
