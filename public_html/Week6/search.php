@@ -13,7 +13,7 @@ if(isset($_POST["search"])){
 if(isset($search)) {
 
     require("common.inc.php");
-    $query = file_get_contents(__DIR__ . "/queries/SEARCH_TABLE_THINGS.sql");
+    $query = file_get_contents(__DIR__ . "/queries/Search_table_Accounts.sql");
     if (isset($query) && !empty($query)) {
         try {
             $stmt = getDB()->prepare($query);
@@ -38,8 +38,8 @@ note the structure and the ":" -->
         <?php foreach($results as $row):?>
             <li>
                 <?php echo get($row, "name")?>
-                <?php echo get($row, "quantity");?>
-                <a href="delete.php?thingId=<?php echo get($row, "id");?>">Delete</a>
+                <?php echo get($row, "balance");?>
+                <a href="delete.php?accountId=<?php echo get($row, "id");?>">Delete</a>
             </li>
         <?php endforeach;?>
     </ul>
