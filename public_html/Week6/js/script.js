@@ -4,7 +4,7 @@ function validate(form){
     //it's to show an example of how you can check for a property so you can reuse a validate function for similar
     //forms.
     errors = [];
-    if(form.hasOwnProperty("name") && form.hasOwnProperty("quantity")){
+    if(form.hasOwnProperty("name") && form.hasOwnProperty("balance")){
         if (form.name.value == null ||
             form.name.value == undefined ||
             form.name.value.length == 0) {
@@ -13,7 +13,7 @@ function validate(form){
         if (form.quantity.value == null ||
             form.quantity.value == undefined ||
             form.quantity.value.length == 0 || form.quantity.value < 0) {
-            errors.push("Quantity must not be empty and a positive number");
+            errors.push("Balance must not be empty and a positive number");
         }
     }
     if(errors.length > 0){
