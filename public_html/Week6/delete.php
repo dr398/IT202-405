@@ -1,12 +1,12 @@
 <?php
-if (isset($_GET["thingId"]) && !empty($_GET["thingId"])){
-    if(is_numeric($_GET["thingId"])){
-        $thingId = (int)$_GET["thingId"];
-        $query = file_get_contents(__DIR__ . "/queries/DELETE_ONE_TABLE_THINGS.sql");
+if (isset($_GET["accountId"]) && !empty($_GET["accountId"])){
+    if(is_numeric($_GET["accountId"])){
+        $accountId = (int)$_GET["accountId"];
+        $query = file_get_contents(__DIR__ . "/queries/Delete_one_table_Accounts.sql");
         if(isset($query) && !empty($query)) {
             require("common.inc.php");
             $stmt = getDB()->prepare($query);
-            $stmt->execute([":id"=>$thingId]);
+            $stmt->execute([":id"=>$accountId]);
             $e = $stmt->errorInfo();
             if($e[0] == "00000"){
                 //we're just going to redirect back to the list
@@ -21,5 +21,5 @@ if (isset($_GET["thingId"]) && !empty($_GET["thingId"])){
     }
 }
 else{
-    echo "Invalid thing to delete";
+    echo "Invalid account to delete";
 }
