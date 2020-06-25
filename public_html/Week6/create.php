@@ -2,53 +2,53 @@
 <!-- note although <script> tag "can" be self terminating some browsers require the
 full closing tag-->
 <form method="POST" onsubmit="return validate(this);">
-    <label for="thing">Thing Name
-        <input type="text" id="thing" name="name" required />
+    <label for="account">Account Name
+        <input type="text" id="account" name="name" required />
     </label>
-    <label for="q">Quantity
-        <input type="number" id="q" name="quantity" required min="0" />
+    <label for="b">Balance
+        <input type="number" id="b" name="balance" required min="0" />
     </label>
-    <input type="submit" name="created" value="Create Thing"/>
+    <input type="submit" name="created" value="Create Account"/>
 </form>
 <?php
 if(isset($_POST["created"])) {
     $name = "";
-    $quantity = -1;
+    $balance = -1;
     if(isset($_POST["name"]) && !empty($_POST["name"])){
         $name = $_POST["name"];
     }
-    if(isset($_POST["quantity"]) && !empty($_POST["quantity"])){
-        if(is_numeric($_POST["quantity"])){
-            $quantity = (int)$_POST["quantity"];
+    if(isset($_POST["balance"]) && !empty($_POST["balance"])){
+        if(is_numeric($_POST["balance"])){
+            $balance = (int)$_POST["balance"];
         }
     }
-    //If name or quantity is invalid, don't do the DB part
-    if(empty($name) || $quantity < 0 ){
-        echo "Name must not be empty and quantity must be greater than or equal to 0";
+    //If name or balance is invalid, don't do the DB part
+    if(empty($name) || $balance < 0 ){
+        echo "Name must not be empty and balance must be greater than or equal to 0";
         die();//terminates the rest of the script
     }
     try {
         require("common.inc.php");
-        $query = file_get_contents(__DIR__ . "/queries/INSERT_TABLE_THINGS.sql");
+        $query = file_get_contents(__DIR__ . "/queries/Insert_table_Accounts.sql");
         if(isset($query) && !empty($query)) {
             $stmt = getDB()->prepare($query);
             $result = $stmt->execute(array(
                 ":name" => $name,
-                ":quantity" => $quantity
+                ":balance" => $balance
             ));
             $e = $stmt->errorInfo();
             if ($e[0] != "00000") {
                 echo var_export($e, true);
             } else {
                 if ($result) {
-                    echo "Successfully inserted new thing: " . $name;
+                    echo "Successfully inserted new account: " . $name;
                 } else {
                     echo "Error inserting record";
                 }
             }
         }
         else{
-            echo "Failed to find INSERT_TABLE_THINGS.sql file";
+            echo "Failed to find Insert_table_Accounts.sql file";
         }
     }
     catch (Exception $e){
