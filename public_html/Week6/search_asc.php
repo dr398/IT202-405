@@ -31,7 +31,7 @@ if(isset($search)) {
 note the structure and the ":" -->
 <!-- note how we must close each check we're doing as well-->
 <?php if(isset($results) && count($results) > 0):?>
-    <p>This shows accounts ascending order when we have results</p>
+    <p>This shows accounts in ascending order when we have results</p>
     <ul>
         <!-- Here we'll loop over all our results and reuse a specific template for each iteration,
         we're also using our helper function to safely return a value based on our key/column name.-->
