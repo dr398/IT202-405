@@ -15,6 +15,9 @@ var ballSize = 10;
 var ballSpeed = 2;
 var paddleSpeed = 2;
 var drawables = [];
+var myGamePiece;
+var myObstacles = [];
+var myMusic;
 // Key Codes
 var W = 87;
 var S = 83;
@@ -28,10 +31,12 @@ var keys = {
     DOWN: false
 };
 
-<audio controls>
-  <source src="tokyo.mp3" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio>
+function startGame() {
+  myGamePiece = new component(30, 30, "red", 10, 120);
+  myMusic = new sound("tokyo.mp3");
+  myMusic.play();
+  myGameArea.start();
+}
 	
 // Keep track of the score
 var leftScore = 0;
