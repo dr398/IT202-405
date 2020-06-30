@@ -28,6 +28,23 @@ var keys = {
     UP: false,
     DOWN: false
 };
+
+function togglePause() {
+     paused = !paused;
+     draw();
+}
+function pauseGameKeyHandler(e) {
+        var keyCode = e.keyCode;
+        switch(keyCode){
+           case 80: //p
+             togglePause();
+             break;
+         }
+}
+if(!paused) {
+   requestAnimationFrame(draw);
+}
+
 // Keep track of the score
 var leftScore = 0;
 var rightScore = 0;
