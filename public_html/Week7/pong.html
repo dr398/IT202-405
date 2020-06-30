@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<head>
 requestAnimationFrame(mainLoop);  // start when code below done.
 // set up keyboard IO
 const keys = {
@@ -46,7 +47,6 @@ function mainLoop(time){
     currentState(); // call the current game state
     requestAnimationFrame(mainLoop);
 }
-<head>
 <script>
 //modified from http://jsfiddle.net/bencentra/q1s8gmqv/?utm_source=website&utm_medium=embed&utm_campaign=q1s8gmqv
 var canvas;
