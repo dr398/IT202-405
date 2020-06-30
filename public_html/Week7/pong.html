@@ -33,8 +33,8 @@ function init() {
     canvas = document.getElementById("board");
     if (canvas.getContext) {
         context = canvas.getContext("2d");
-        leftPaddle = makeRect(25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#BC0000');
-        rightPaddle = makeRect(canvas.width - paddleWidth - 25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#0000BC');
+        leftPaddle = makeCircle(25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#BC0000');
+        rightPaddle = makeCircle(canvas.width - paddleWidth - 25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#0000BC');
         ball = makeRect(0, 0, ballSize, ballSize, ballSpeed, '#000000');
         drawables.push(leftPaddle);
         drawables.push(rightPaddle);
@@ -119,7 +119,7 @@ function attachKeyListeners() {
     });
 }
 // Create a rectangle object - for paddles, ball, etc
-function makeRect(x, y, width, height, speed, color) {
+function makeCircle(x, y, width, height, speed, color) {
     if (!color)
         color = '#000000';
     return {
@@ -131,7 +131,7 @@ function makeRect(x, y, width, height, speed, color) {
         c: color,
         draw: function () {
             context.fillStyle = this.c;
-            context.fillRect(this.x, this.y, this.w, this.h);
+            context.fillCircle(this.x, this.y, this.w, this.h);
         }
     };
 }
