@@ -15,7 +15,7 @@ var ballSize = 10;
 var ballSpeed = 2;
 var paddleSpeed = 2;
 var drawables = [];
-var paused = false;
+var myMusic;
 	
 // Key Codes
 var W = 87;
@@ -49,6 +49,8 @@ function init() {
         attachKeyListeners();
         loop = window.setInterval(gameLoop, 16); //16ms
         canvas.focus();
+	myMusic = new sound("tokyo.mp3");
+  	myMusic.play();
     }
 }
 function resetBall() {
