@@ -15,12 +15,13 @@ var ballSize = 10;
 var ballSpeed = 2;
 var paddleSpeed = 2;
 var drawables = [];
-var paused = false;
+	
 // Key Codes
 var W = 87;
 var S = 83;
 var UP = 38;
 var DOWN = 40;
+	
 // Keep track of pressed keys
 var keys = {
     W: false,
@@ -28,22 +29,6 @@ var keys = {
     UP: false,
     DOWN: false
 };
-
-function togglePause() {
-     paused = !paused;
-     draw();
-}
-function pauseGameKeyHandler(e) {
-        var keyCode = e.keyCode;
-        switch(keyCode){
-           case 80: //p
-             togglePause();
-             break;
-         }
-}
-if(!paused) {
-   requestAnimationFrame(draw);
-}
 
 // Keep track of the score
 var leftScore = 0;
