@@ -28,13 +28,6 @@ var keys = {
     DOWN: false
 };
 	
-game = setTimeout(gameLoop, 1000 / 30);
-function keyDown(e) {
-  if (e.keyCode == 80) pauseGame();
-}
-function pauseGame() {
-  game = clearTimeout(game);
-}
 function pauseGame() {
   if (!gamePaused) {
     game = clearTimeout(game);
