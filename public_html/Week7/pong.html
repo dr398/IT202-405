@@ -15,9 +15,6 @@ var ballSize = 10;
 var ballSpeed = 2;
 var paddleSpeed = 2;
 var drawables = [];
-var myGamePiece;
-var myGameArea;
-var myObstacles = [];
 var myMusic;
 // Key Codes
 var W = 87;
@@ -33,10 +30,8 @@ var keys = {
 };
 
 function startGame() {
-  myGamePiece = new component(30, 30, "red", 10, 120);
   myMusic = new sound("tokyo.mp3");
   myMusic.play();
-  myGameArea.start();
 }
 	
 // Keep track of the score
