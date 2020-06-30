@@ -15,6 +15,7 @@ var ballSize = 10;
 var ballSpeed = 2;
 var paddleSpeed = 2;
 var drawables = [];
+var paused = false;
 	
 // Key Codes
 var W = 87;
@@ -233,6 +234,24 @@ function gameLoop() {
         drawables[i].draw();
     }
 }
+
+ window.addEventListener('keydown', pauseGameKeyHandler, false);
+
+            function pauseGameKeyHandler(e) {
+                var keyCode = e.keyCode;
+                switch(keyCode){
+                    case 80: //p
+                    togglePause();
+                    break;
+                }
+
+            }
+
+            function togglePause() {
+                paused = !paused;
+                draw();
+            }
+
 </script>
 </head>
 <body onload="init();">
