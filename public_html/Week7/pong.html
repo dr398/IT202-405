@@ -235,23 +235,6 @@ function gameLoop() {
     }
 }
 
- window.addEventListener('keydown', pauseGameKeyHandler, false);
-
-            function pauseGameKeyHandler(e) {
-                var keyCode = e.keyCode;
-                switch(keyCode){
-                    case 80: //p
-                    togglePause();
-                    break;
-                }
-
-            }
-
-            function togglePause() {
-                paused = !paused;
-                draw();
-            }
-
 </script>
 </head>
 <body onload="init();">
