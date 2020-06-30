@@ -15,7 +15,6 @@ var ballSize = 10;
 var ballSpeed = 2;
 var paddleSpeed = 2;
 var drawables = [];
-var myMusic;
 // Key Codes
 var W = 87;
 var S = 83;
@@ -29,10 +28,6 @@ var keys = {
     DOWN: false
 };
 
-function startGame() {
-  myMusic = new sound("tokyo.mp3");
-  myMusic.play();
-}
 	
 // Keep track of the score
 var leftScore = 0;
