@@ -28,12 +28,18 @@ var keys = {
     DOWN: false
 };
 	
+function gamePaused{ /**i need help on this**/ }
+
+function keyDown(e) {
+  if (e.keyCode == 80) pauseGame();
+}
+
 function pauseGame() {
   if (!gamePaused) {
     game = clearTimeout(game);
     gamePaused = true;
   } else if (gamePaused) {
-    game = setTimeout(gameLoop, 1000 / 30);
+    game = setTimeout(loop, 1000 / 30);
     gamePaused = false;
   }
 }
