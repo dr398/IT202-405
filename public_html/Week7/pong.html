@@ -33,9 +33,9 @@ function init() {
     canvas = document.getElementById("board");
     if (canvas.getContext) {
         context = canvas.getContext("2d");
-        leftPaddle = makeCircle(25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#BC0000');
-        rightPaddle = makeCircle(canvas.width - paddleWidth - 25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#0000BC');
-        ball = makeRect(0, 0, ballSize, ballSize, ballSpeed, '#000000');
+        leftPaddle = makePoly(25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#BC0000');
+        rightPaddle = makePoly(canvas.width - paddleWidth - 25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#0000BC');
+        ball = makePoly(0, 0, ballSize, ballSize, ballSpeed, '#000000');
         drawables.push(leftPaddle);
         drawables.push(rightPaddle);
         drawables.push(ball);
@@ -118,8 +118,8 @@ function attachKeyListeners() {
         console.log(keys);
     });
 }
-// Create a rectangle object - for paddles, ball, etc
-function makeCircle(x, y, width, height, speed, color) {
+// Create a poly object - for paddles, ball, etc
+function makePoly(x, y, width, height, speed, color) {
     if (!color)
         color = '#000000';
     return {
@@ -131,7 +131,7 @@ function makeCircle(x, y, width, height, speed, color) {
         c: color,
         draw: function () {
             context.fillStyle = this.c;
-            context.fillCircle(this.x, this.y, this.w, this.h);
+            context.fillPoly(this.x, this.y, this.w, this.h);
         }
     };
 }
