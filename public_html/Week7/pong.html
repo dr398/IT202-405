@@ -1,5 +1,51 @@
 <!DOCTYPE html>
 <html>
+requestAnimationFrame(mainLoop);  // start when code below done.
+// set up keyboard IO
+const keys = {
+    KeyP : false,
+    Enter : false,
+    listener(e){
+       if(keys[e.code] !== undefined){
+           keys[e.code] = e.type === "keydown";
+           e.preventDefault();
+        }
+    }
+}
+addEventListener("keydown",keys.listener);
+addEventListener("keyup",keys.listener);
+
+// the current game state
+var currentState = startGame;
+
+function startGame (){
+    // code to do a single frame of start game
+   // display press enter to start
+   if(keys.Enter){
+      keys.Enter = false;
+      currentState = game;  // start the game
+   }
+}
+function pause(){
+    // code to do a single frame of pause
+   // display pause
+    if(keys.KeyP){
+       keys.KeyP = false; // turn off key
+       currentState = game;   // resume game
+    }
+
+}
+function game(){
+    // code to do a single frame of game
+    if(keys.KeyP){
+       keys.KeyP = false; // turn off key
+       currentState = pause;  // pause game
+    }
+}
+function mainLoop(time){
+    currentState(); // call the current game state
+    requestAnimationFrame(mainLoop);
+}
 <head>
 <script>
 //modified from http://jsfiddle.net/bencentra/q1s8gmqv/?utm_source=website&utm_medium=embed&utm_campaign=q1s8gmqv
@@ -15,6 +61,7 @@ var ballSize = 10;
 var ballSpeed = 2;
 var paddleSpeed = 2;
 var drawables = [];
+var paused = false;
 // Key Codes
 var W = 87;
 var S = 83;
