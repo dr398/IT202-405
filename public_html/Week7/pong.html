@@ -2,6 +2,7 @@
 <html>
 <head>
 <script>
+//modified from http://jsfiddle.net/bencentra/q1s8gmqv/?utm_source=website&utm_medium=embed&utm_campaign=q1s8gmqv
 var canvas;
 var context;
 var loop;
@@ -33,9 +34,9 @@ function init() {
     canvas = document.getElementById("board");
     if (canvas.getContext) {
         context = canvas.getContext("2d");
-        leftPaddle = makePoly(25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#BC0000');
-        rightPaddle = makePoly(canvas.width - paddleWidth - 25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#0000BC');
-        ball = makePoly(0, 0, ballSize, ballSize, ballSpeed, '#000000');
+        leftPaddle = makeRect(25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#BC0000');
+        rightPaddle = makeRect(canvas.width - paddleWidth - 25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#0000BC');
+        ball = makeRect(0, 0, ballSize, ballSize, ballSpeed, '#000000');
         drawables.push(leftPaddle);
         drawables.push(rightPaddle);
         drawables.push(ball);
@@ -118,8 +119,8 @@ function attachKeyListeners() {
         console.log(keys);
     });
 }
-// Create a poly object - for paddles, ball, etc
-function makePoly(x, y, width, height, speed, color) {
+// Create a rectangle object - for paddles, ball, etc
+function makeRect(x, y, width, height, speed, color) {
     if (!color)
         color = '#000000';
     return {
@@ -131,7 +132,7 @@ function makePoly(x, y, width, height, speed, color) {
         c: color,
         draw: function () {
             context.fillStyle = this.c;
-            context.fillPoly(this.x, this.y, this.w, this.h);
+            context.fillRect(this.x, this.y, this.w, this.h);
         }
     };
 }
