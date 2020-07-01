@@ -15,7 +15,6 @@ var ballSize = 10;
 var ballSpeed = 2;
 var paddleSpeed = 2;
 var drawables = [];
-var myMusic;
 	
 // Key Codes
 var W = 87;
@@ -38,8 +37,8 @@ function init() {
     canvas = document.getElementById("board");
     if (canvas.getContext) {
         context = canvas.getContext("2d");
-        leftPaddle = makeRect(25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#BC0000');
-        rightPaddle = makeRect(canvas.width - paddleWidth - 25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#0000BC');
+        leftPaddle = makeRect(25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#73FF6F');
+        rightPaddle = makeRect(canvas.width - paddleWidth - 25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#CA32FF');
         ball = makeRect(0, 0, ballSize, ballSize, ballSpeed, '#000000');
         drawables.push(leftPaddle);
         drawables.push(rightPaddle);
