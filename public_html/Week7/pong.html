@@ -39,7 +39,7 @@ function init() {
         context = canvas.getContext("2d");
         leftPaddle = makeRect(25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#73FF6F');
         rightPaddle = makeRect(canvas.width - paddleWidth - 25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#CA32FF');
-        ball = makeRect(0, 0, ballSize, ballSize, ballSpeed, '#00000');
+        ball = makeRect(0, 0, ballSize, ballSize, ballSpeed, '#FF4A4A');
         drawables.push(leftPaddle);
         drawables.push(rightPaddle);
         drawables.push(ball);
