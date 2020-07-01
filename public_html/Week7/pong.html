@@ -246,6 +246,20 @@ function gameLoop() {
 		<source src="tokyo.mp3" type="audio/mp3">
 	</audio>
 	<h4 style="color:blue;font-family:Courier New"> Click play above for music </h4>
+<div id="app" class="container">
+    <!--PASS STRING using ''-->
+    <h1 v-color="'purple'">Vue School</h1> 
+    <h1 v-color="'yellow'">vueschool.io</h1>
+    <h1 v-switching-color:slow="colors">vueschool.io</h1>
+    <h1 v-switching-color:crazy="colors">vueschool.io</h1>
+    <h1 v-switching-color:fast.underline="colors">vueschool.io</h1>
+    <h1 v-switching-color:slow.underline.textcenter="colors">vueschool.io</h1>
+    <h1 
+      v-switching-color:fast="colors"
+      v-if="show" >Vue School</h1> 
+    <button @click=" show = !show">toggle</button>
+  </div>
+
 	
 
 </body>
