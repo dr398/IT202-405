@@ -7,6 +7,6 @@ CREATE TABLE Transactions (
     created datetime default current_timestamp,
     modified datetime default current_timestamp on update current_timestamp,
     primary key (id),
-    foreign key (AccountSource) REFERENCES AccountSource(AccountSource)
-    foreign key (AccountDest)  REFERENCES AccountDest(AccountDest)
+    foreign key (AccountSource) REFERENCES Accounts(AccountSource)
+    foreign key (AccountDest) REFERENCES Accounts (AccountDest)
 );
