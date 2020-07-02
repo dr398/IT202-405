@@ -33,7 +33,6 @@ function do_bank_action($account1, $account2, $amountChange, $type){
 <form method="POST">
 	<input type="text" name="account1" placeholder="Account ID">
 	<!-- If our sample is a transfer show other account field-->
-	<?php if($_GET['type'] == 'transfer') : ?>
 	<input type="text" name="account2" placeholder="Other Account ID">
 	<?php endif; ?>
 	
