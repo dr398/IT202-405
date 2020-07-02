@@ -1,7 +1,7 @@
 CREATE TABLE Transactions (
     id int auto_increment,
-    AccountSource int not null unique,
-    AccountDest int varchar(30) not null unique,
+    AccountSource int not null,
+    AccountDest int varchar(30) not null,
     Type int not null default 0,
     Total int not null default 0,
     created datetime default current_timestamp,
