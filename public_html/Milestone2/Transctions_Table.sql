@@ -6,5 +6,7 @@ CREATE TABLE Transactions (
     Total int not null default 0,
     created datetime default current_timestamp,
     modified datetime default current_timestamp on update current_timestamp,
-    primary key  foreign key (id)
+    primary key (id)
+    foreign key (AccountSource)
+    foreign key (AccountDest)
 )
