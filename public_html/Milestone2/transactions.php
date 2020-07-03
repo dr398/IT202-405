@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 function do_bank_action($account1, $account2, $amountChange, $type){
 	require("config.php");
-	$conn_string = "mysql:host=$dbhost;dbdatabase=$path;charset=utf8mb4";
+	$conn_string = "mysql:host=$dbhost;database=$dbdatabase;charset=utf8mb4";
 	$db = new PDO($conn_string, $dbuser, $dbpass);
 	$a1total = 0;//TODO get total of account 1
 	$a2total = 0;//TODO get total of account 2
