@@ -27,7 +27,6 @@ function do_bank_action($AccountSource, $AccountDest){
 <form method="POST">
 	<input type="text" name="AccountSource" placeholder="Account Number">
 	<!-- If our sample is a transfer show other account field-->
-	<?php if($_GET['type'] == 'transfer') : ?>
 	<input type="text" name="AccountDest" placeholder="Other Account Number">
 	<?php endif; ?>
 	
