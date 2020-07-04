@@ -1,13 +1,13 @@
-CREATE TABLE Transactions (
-id int auto_increment,
-AccountSource int not null, 
-AccountDest int (30) not null,
-Amount varchar(60) default 0,
-Type int not null default 0,
-Total int not null default 0,
-created datetime default current_timestamp,
-modified datetime default current_timestamp on update current_timestamp,
-primary key (id),
-Foreign key (accountsource) references Accounts (id),
-Foreign key (accountdest) references Accounts (id)
+CREATE TABLE Transactions(
+    id int auto_increment,
+    act_src_id int not null,
+    act_dest_id int null,
+    amount decimal(12,2),
+    `type` varchar(10), --deposit, withdraw, transfer, etc
+    memo TEXT,
+    expected_total decimal (12,2)
+    created datetime default current_timestamp,
+    primary key (id),
+    foreign key (act_src_id) references Accounts(id),
+    foreign key (act_dest_id) references Accounts(id)
 )
