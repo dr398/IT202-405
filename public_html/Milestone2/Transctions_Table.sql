@@ -5,7 +5,7 @@ CREATE TABLE Transactions(
     amount decimal(12,2),
     type varchar(10),
     memo TEXT,
-    total decimal (12,2),
+    expected_total decimal (12,2),
     created datetime default current_timestamp,
     primary key (id),
     foreign key (act_src_id) references Accounts(id),
