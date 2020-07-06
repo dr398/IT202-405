@@ -8,7 +8,6 @@ function do_bank_action($account1, $account2, $amountChange, $type){
 	$db = new PDO($conn_string, $dbuser, $dbpass);
 	$a1total = 0;//TODO get total of account 1
 	$a2total = 0;//TODO get total of account 2
-	echo var_dump($p1a1, true);
 	$query = "INSERT INTO `Transactions` (`act_src_id`, `act_dest_id`, `amount`, `type`, `expected_total`) 
 	VALUES(:p1a1, :p1a2, :p1change, :type, :a1total), 
 			(:p2a1, :p2a2, :p2change, :type, :a2total)";
@@ -27,6 +26,8 @@ function do_bank_action($account1, $account2, $amountChange, $type){
 	$stmt->bindValue(":a2total", $a2total);
 	$result = $stmt->execute();
 	echo var_export($result, true);
+	echo var_dump($account1, true); 
+	echo var_dump ($account2, true);
 	echo var_export($stmt->errorInfo(), true);
 	return $result;
 }
