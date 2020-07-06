@@ -26,6 +26,7 @@ function do_bank_action($account1, $account2, $amountChange, $type){
 	$stmt->bindValue(":a2total", $a2total);
 	$result = $stmt->execute();
 	echo var_export($result, true);
+	echo var_dump($p1a1, true);
 	echo var_export($stmt->errorInfo(), true);
 	return $result;
 }
