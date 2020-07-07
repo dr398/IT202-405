@@ -11,6 +11,21 @@ full closing tag-->
     <input type="submit" name="created" value="Create Account"/>
 </form>
 <?php
+require("common.inc.php");
+//find the max id in the table
+$query = "SELECT MAX(id) as max from Accounts";
+$stmt = getDB()->prepare($query);
+$stmt->execute();
+$r = $stmt->fetch(PDO::FETCH_ASSOC);
+$max = (int)$r["max"];//should really check that this value is given correctly, I'm unsafely using it
+$max += 1;//increment by 1 (since this should be the new id that'll get automatically generated
+//pad the number with 0s to the left (this will fit the requirement and be unique since it's based on id
+$account_number = str_pad($str,12,"0",STR_PAD_LEFT);//read it https://www.w3schools.com/php/func_string_str_pad.asp
+//insert the new account number and associate it with the logged in user
+$query = "INSERT INTO Accounts(account_number, user_id) VALUES(:an, :uid)";
+$stmt = getDB()->prepare($query);
+$stmt->execute(array(":an"=>$account_number, ":uid"=>$_SESSION["user"]["id"]));
+//check your DB, account should be created successfuly 
 if(isset($_POST["created"])) {
     $name = "";
     $balance = -1;
