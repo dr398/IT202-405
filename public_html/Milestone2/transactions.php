@@ -29,7 +29,6 @@ function do_bank_action($account1, $account2, $amountChange, $type){
 	echo var_dump($account1, true); 
 	echo var_dump ($account2, true);
 	echo var_export($stmt->errorInfo(), true);
-	echo (rand(0,12) . "<br>");
 	return $result;
 }
 ?>
