@@ -22,10 +22,11 @@ $max += 1;//increment by 1 (since this should be the new id that'll get automati
 //pad the number with 0s to the left (this will fit the requirement and be unique since it's based on id
 $account_number = str_pad($str,12,"0",STR_PAD_LEFT);//read it https://www.w3schools.com/php/func_string_str_pad.asp
 //insert the new account number and associate it with the logged in user
-$query = "INSERT INTO Accounts(account_number, user_id) VALUES(:an, :uid)";
+$query = "INSERT INTO Accounts(account_number, id) VALUES(:an, :id)";
 $stmt = getDB()->prepare($query);
-$stmt->execute(array(":an"=>$account_number, ":uid"=>$_SESSION["user"]["id"]));
+$stmt->execute(array(":an"=>$account_number, ":id"=>$_SESSION["id"]));
 //check your DB, account should be created successfuly 
+}
 if(isset($_POST["created"])) {
     $name = "";
     $balance = -1;
@@ -68,7 +69,7 @@ if(isset($_POST["created"])) {
     }
     catch (Exception $e){
         echo $e->getMessage();
-        echo (rand(12) . "<br>");
+ 
     }
 }
 ?>
