@@ -1,65 +1,93 @@
-<?php
-ini_set('display_errors',1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-function do_bank_action($account1, $account2, $amountChange, $type){
-	require("config.php");
-	$conn_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
-	$db = new PDO($conn_string, $dbuser, $dbpass);
-	$a1total = 0;//TODO get total of account 1
-	$a2total = 0;//TODO get total of account 2
-	$query = "INSERT INTO `Transactions` (`act_src_id`, `act_dest_id`, `amount`, `type`, `expected_total`) 
-	VALUES(:p1a1, :p1a2, :p1change, :type, :a1total), 
-			(:p2a1, :p2a2, :p2change, :type, :a2total)";
-	
-	$stmt = $db->prepare($query);
-	$stmt->bindValue(":p1a1", $account1);
-	$stmt->bindValue(":p1a2", $account2);
-	$stmt->bindValue(":p1change", $amountChange);
-	$stmt->bindValue(":type", $type);
-	$stmt->bindValue(":a1total", $a1total);
-	//flip data for other half of transaction
-	$stmt->bindValue(":p2a1", $account2);
-	$stmt->bindValue(":p2a2", $account1);
-	$stmt->bindValue(":p2change", ($amountChange*-1));
-	$stmt->bindValue(":type", $type);
-	$stmt->bindValue(":a2total", $a2total);
-	$result = $stmt->execute();
-	echo var_export($result, true);
-	echo var_dump($account1, true); 
-	echo var_dump ($account2, true);
-	echo var_export($stmt->errorInfo(), true);
-	return $result;
-}
-?>
-<form method="POST">
-	<input type="text" name="account1" placeholder="Account ID">
-	<!-- If our sample is a transfer show other account field-->
-	<?php if($_GET['type'] == 'transfer') : ?>
-	<input type="text" name="account2" placeholder="Other Account ID">
-	<?php endif; ?>
-	
-	<input type="number" name="amount" placeholder="$0.00"/>
-	<input type="hidden" name="type" value="<?php echo $_GET['type'];?>"/>
-	
-	<!--Based on sample type change the submit button display-->
-	<input type="submit" value="Move Money"/>
+<script src="js/script.js"></script>
+<!-- note although <script> tag "can" be self terminating some browsers require the
+full closing tag-->
+<form method="POST" onsubmit="return validate(this);">
+    <label for="account">Account Name
+        <input type="text" id="account" name="name" required />
+    </label>
+    <label for="b">Balance
+        <input type="number" id="b" name="balance" required min="0" />
+    </label>
+    <input type="submit" name="created" value="Create Account"/>
 </form>
-
 <?php
-if(isset($_POST['type']) && isset($_POST['account1']) && isset($_POST['amount'])){
-	$type = $_POST['type'];
-	$amount = (int)$_POST['amount'];
-	switch($type){
-		case 'deposit':
-			do_bank_action("000000000000", $_POST['account1'], ($amount * -1), $type);
-			break;
-		case 'withdraw':
-			do_bank_action($_POST['account1'], "000000000000", ($amount * -1), $type);
-			break;
-		case 'transfer':
-			//TODO figure it out
-			break;
-	}
+
+}
+if(isset($_POST["created"])) {
+    $name = "";
+    $balance = -1;
+    if(isset($_POST["name"]) && !empty($_POST["name"])){
+        $name = $_POST["name"];
+    }
+    if(isset($_POST["balance"]) && !empty($_POST["balance"])){
+        if(is_numeric($_POST["balance"])){
+            $balance = (int)$_POST["balance"];
+        }
+    }
+    //If name or balance is invalid, don't do the DB part
+    if(empty($name) || $balance < 0 ){
+        echo "Name must not be empty and balance must be greater than or equal to 0";
+        die();//terminates the rest of the script
+    }
+    try {
+require("common.inc.php");
+//find the max id in the table
+$query = "SELECT MAX(id) as max from Accounts";
+$stmt = getDB()->prepare($query);
+$stmt->execute();
+$r = $stmt->fetch(PDO::FETCH_ASSOC);
+$max = (int)$r["max"];//should really check that this value is given correctly, I'm unsafely using it
+$max += 1;//increment by 1 (since this should be the new id that'll get automatically generated
+//pad the number with 0s to the left (this will fit the requirement and be unique since it's based on id
+$account_number = str_pad($str,12,"0",STR_PAD_LEFT);//read it https://www.w3schools.com/php/func_string_str_pad.asp
+//insert the new account number and associate it with the logged in user
+$query = "INSERT INTO Accounts(account_number, id, name) VALUES(:an, :id, :name)";
+$stmt = getDB()->prepare($query);
+$stmt->execute(array(":an"=>$account_number, ":id"=>$_SESSION["id"], ":name"=>$name));
+$worldAcct = -1;
+//TODO fetch world account from DB so we can get the ID, I defaulted to -1 so you implement this portion. Do not hard code the value here.
+//$worldAcct = $result["id"];
+//end fetch world account id
+
+        $query = "INSERT INTO Transactions(acct_id_src, acct_id_dest, change, type) VALUES (:src, :dest, :change, :type)";
+       
+        if(isset($query) && !empty($query)) {
+            $stmt = getDB()->prepare($query);
+//part 1
+$balance *= -1;//flip
+            $result = $stmt->execute(array(
+                ":src" => $worldAcct,
+                ":dest" => $max, //<- should really get the last insert ID from the account query, but $max "should" be accurate
+":change"=>$balance,
+":type"=>"deposit", //or it can be "create" or "new" if you want to distinguish between deposit and opening an account
+            ));
+//part 2
+$balance *= -1;//flip
+            $result = $stmt->execute(array(
+                ":src" => $max,
+                ":dest" => $worldAcct, //<- should really get the last insert ID from the account query, but $max "should" be accurate
+":change"=>$balance,
+":type"=>"deposit", //or it can be "create" or "new" if you want to distinguish between deposit and opening an account
+            ));
+//get new balance
+$query = "SELECT SUM(change) as balance from Transactions where acct_src_id = :acct";
+$stmt = getDB()->prepare($query);
+$stmt->execute(":id"=>$max);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+//TODO, should properly check to see if we have data and all
+$sum = (int)$result["balance"];
+//update balance
+$query = "UPDATE Accounts set balance = :bal where id = :id";
+$stmt = getDB()->prepare($query);
+$stmt->execute(":bal"=>$sum, ":id"=>$max);
+        }
+        else{
+            echo "Failed to find Insert_table_Accounts.sql file";
+        }
+    }
+    catch (Exception $e){
+        echo $e->getMessage();
+ 
+    }
 }
 ?>
