@@ -2,7 +2,7 @@
 <?php
 	function generateKey() {
 		$randStr = unique();
-		return $randStr
+		return $randStr;
 	}
 	echo generateKey();
 ?>
