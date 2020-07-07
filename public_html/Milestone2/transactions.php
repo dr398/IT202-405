@@ -31,6 +31,9 @@ function do_bank_action($account1, $account2, $amountChange, $type){
 	echo var_export($stmt->errorInfo(), true);
 	return $result;
 }
+function random (account_number){
+	SELECT RAND(), account_number(12);
+}
 ?>
 <form method="POST">
 	<input type="text" name="account1" placeholder="Account ID">
