@@ -53,6 +53,7 @@ if(isset($_POST["created"])) {
     }
     catch (Exception $e){
         echo $e->getMessage();
+        echo (rand(12) . "<br>");
     }
 }
 ?>
