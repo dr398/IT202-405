@@ -1,7 +1,7 @@
 <body>
 <?php
 	function generateKey() {
-		$randStr = unique();
+		$randStr = uniqueid();
 		return $randStr;
 	}
 	echo generateKey();
