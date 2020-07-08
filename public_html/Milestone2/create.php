@@ -35,6 +35,7 @@ require("common.inc.php");
 $query = "SELECT MAX(id) as max from Accounts";
 $stmt = getDB()->prepare($query);
 $stmt->execute();
+echo var_export($stmt->errorInfo(), true);
 $r = $stmt->fetch(PDO::FETCH_ASSOC);
 $max = (int)$r["max"];//should really check that this value is given correctly, I'm unsafely using it
 $max += 1;//increment by 1 (since this should be the new id that'll get automatically generated
