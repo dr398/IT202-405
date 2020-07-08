@@ -35,6 +35,7 @@ require("common.inc.php");
 $query = "SELECT MAX(id) as max from Accounts";
 $stmt = getDB()->prepare($query);
 $stmt->execute();
+var_dump($stmt->errorInfo());
 $r = $stmt->fetch(PDO::FETCH_ASSOC);
 $max = (int)$r["max"];//should really check that this value is given correctly, I'm unsafely using it
 $max += 1;//increment by 1 (since this should be the new id that'll get automatically generated
@@ -80,7 +81,6 @@ $sum = (int)$result["balance"];
 $query = "UPDATE Accounts set balance = :bal where id = :id";
 $stmt = getDB()->prepare($query);
 $stmt->execute(":bal"=>$sum, ":id"=>$max);
-var_dump($stmt->errorInfo()); 
         }
         else{
             echo "Failed to find Insert_table_Accounts.sql file";
