@@ -38,3 +38,5 @@ echo var_export($stmt->errorInfo(), true);
 $r = $stmt->fetch(PDO::FETCH_ASSOC);
 $max = (int)$r["max"];
 $max += 1;//gives us what "should" be the next id
+        
+?>
