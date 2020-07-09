@@ -45,6 +45,7 @@ $account_number = str_pad($str,12,"0",STR_PAD_LEFT);//read it https://www.w3scho
 $query = "INSERT INTO Accounts(account_number, id, name) VALUES(:an, :id, :name)";
 $stmt = getDB()->prepare($query);
 $stmt->execute(array(":an"=>$account_number, ":id"=>$_SESSION["id"], ":name"=>$name));
+echo var_export($stmt->errorInfo(), true);
 $worldAcct = -1;
 //TODO fetch world account from DB so we can get the ID, I defaulted to -1 so you implement this portion. Do not hard code the value here.
 //$worldAcct = $result["id"];
@@ -57,6 +58,7 @@ $worldAcct = -1;
             $stmt = getDB()->prepare("SELECT id from Accounts where account_number = :ac");
 //part 1
 $balance *= -1;//flip
+            echo var_export($stmt->errorInfo(), true);
             $result = $stmt->execute(array(
                 ":src" => $worldAcct,
                 ":dest" => $max, //<- should really get the last insert ID from the account query, but $max "should" be accurate
@@ -64,6 +66,7 @@ $balance *= -1;//flip
 ":type"=>"deposit", //or it can be "create" or "new" if you want to distinguish between deposit and opening an account
             ));
 //part 2
+echo var_export($stmt->errorInfo(), true);
 $balance *= -1;//flip
             $result = $stmt->execute(array(
                 ":src" => $max,
@@ -73,6 +76,7 @@ $balance *= -1;//flip
             ));
 //get new balance
 $query = "SELECT SUM(change) as balance from Transactions where acct_src_id = :acct";
+echo var_export($stmt->errorInfo(), true);
 $stmt = getDB()->prepare($query);
 $stmt->execute([":id"=>$max]);
 $stmt->execute([":ac"=>"000000000000"]);
@@ -83,6 +87,7 @@ $sum = (int)$result["balance"];
 $query = "UPDATE Accounts set balance = :bal where id = :id";
 $stmt = getDB()->prepare($query);
 $stmt->execute([":bal"=>$sum, ":id"=>$max]);
+echo var_export($stmt->errorInfo(), true);
 $worldAccount = $result["id"];
         }
         else{
