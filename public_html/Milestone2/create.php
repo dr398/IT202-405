@@ -91,4 +91,9 @@ $stmt->execute([":bal"=>$sum, ":id"=>$max]);
  
     }
 }
+$stmt = getDB()->prepare("SELECT id from Accounts where account_number = :ac");
+$stmt->execute([":ac"=>"000000000000"]);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$worldAccount = $result["id"];
+}
 ?>
