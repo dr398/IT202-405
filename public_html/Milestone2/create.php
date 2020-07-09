@@ -51,10 +51,10 @@ $worldAcct = -1;
 //end fetch world account id
 
         $query = "INSERT INTO Transactions(acct_id_src, acct_id_dest, change, type) VALUES (:src, :dest, :change, :type)";
-        $stmt = getDB()->prepare("SELECT id from Accounts where account_number = :ac");
+        
        
         if(isset($query) && !empty($query)) {
-            $stmt = getDB()->prepare($query);
+            $stmt = getDB()->prepare("SELECT id from Accounts where account_number = :ac");
 //part 1
 $balance *= -1;//flip
             $result = $stmt->execute(array(
