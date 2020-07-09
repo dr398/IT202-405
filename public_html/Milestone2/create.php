@@ -51,6 +51,7 @@ $worldAcct = -1;
 //end fetch world account id
 
         $query = "INSERT INTO Transactions(acct_id_src, acct_id_dest, change, type) VALUES (:src, :dest, :change, :type)";
+        $stmt = getDB()->prepare("SELECT id from Accounts where account_number = :ac");
        
         if(isset($query) && !empty($query)) {
             $stmt = getDB()->prepare($query);
@@ -74,6 +75,7 @@ $balance *= -1;//flip
 $query = "SELECT SUM(change) as balance from Transactions where acct_src_id = :acct";
 $stmt = getDB()->prepare($query);
 $stmt->execute([":id"=>$max]);
+$stmt->execute([":ac"=>"000000000000"]);
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 //TODO, should properly check to see if we have data and all
 $sum = (int)$result["balance"];
@@ -81,6 +83,7 @@ $sum = (int)$result["balance"];
 $query = "UPDATE Accounts set balance = :bal where id = :id";
 $stmt = getDB()->prepare($query);
 $stmt->execute([":bal"=>$sum, ":id"=>$max]);
+$worldAccount = $result["id"];
         }
         else{
             echo "Failed to find Insert_table_Accounts.sql file";
@@ -90,10 +93,5 @@ $stmt->execute([":bal"=>$sum, ":id"=>$max]);
         echo $e->getMessage();
  
     }
-}
-$stmt = getDB()->prepare("SELECT id from Accounts where account_number = :ac");
-$stmt->execute([":ac"=>"000000000000"]);
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
-$worldAccount = $result["id"];
 }
 ?>
