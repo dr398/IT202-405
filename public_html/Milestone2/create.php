@@ -35,6 +35,7 @@ require("common.inc.php");
 $query = "SELECT MAX(id) as max from Accounts";
 $stmt = getDB()->prepare($query);
 $stmt->execute();
+echo var_export($stmt->errorInfo(), true);
 $r = $stmt->fetch(PDO::FETCH_ASSOC);
 $max = (int)$r["max"];//should really check that this value is given correctly, I'm unsafely using it
 $max += 1;//increment by 1 (since this should be the new id that'll get automatically generated
@@ -44,6 +45,7 @@ $account_number = str_pad($str,12,"0",STR_PAD_LEFT);//read it https://www.w3scho
 $query = "INSERT INTO Accounts(account_number, id, name) VALUES(:an, :id, :name)";
 $stmt = getDB()->prepare($query);
 $stmt->execute(array(":an"=>$account_number, ":id"=>$_SESSION["id"], ":name"=>$name));
+echo var_export($stmt->errorInfo(), true);
 $worldAcct = -1;
 //TODO fetch world account from DB so we can get the ID, I defaulted to -1 so you implement this portion. Do not hard code the value here.
 //$worldAcct = $result["id"];
@@ -56,6 +58,7 @@ $worldAcct = -1;
 //part 1
 $balance *= -1;//flip
             $result = $stmt->execute(array(
+            echo var_export($stmt->errorInfo(), true);
                 ":src" => $worldAcct,
                 ":dest" => $max, //<- should really get the last insert ID from the account query, but $max "should" be accurate
 ":change"=>$balance,
@@ -64,6 +67,7 @@ $balance *= -1;//flip
 //part 2
 $balance *= -1;//flip
             $result = $stmt->execute(array(
+            echo var_export($stmt->errorInfo(), true);
                 ":src" => $max,
                 ":dest" => $worldAcct, //<- should really get the last insert ID from the account query, but $max "should" be accurate
 ":change"=>$balance,
@@ -73,6 +77,7 @@ $balance *= -1;//flip
 $query = "SELECT SUM(change) as balance from Transactions where acct_src_id = :acct";
 $stmt = getDB()->prepare($query);
 $stmt->execute([":id"=>$max]);
+echo var_export($stmt->errorInfo(), true);
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 //TODO, should properly check to see if we have data and all
 $sum = (int)$result["balance"];
@@ -80,6 +85,7 @@ $sum = (int)$result["balance"];
 $query = "UPDATE Accounts set balance = :bal where id = :id";
 $stmt = getDB()->prepare($query);
 $stmt->execute([":bal"=>$sum, ":id"=>$max]);
+echo var_export($stmt->errorInfo(), true);
         }
         else{
             echo "Failed to find Insert_table_Accounts.sql file";
