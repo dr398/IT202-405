@@ -77,7 +77,7 @@ $balance *= -1;//flip
 echo var_export($stmt->errorInfo(), true);
             ));
 //get new balance
-$query = "SELECT SUM(change) as balance from Transactions where acct_src_id = :acct";
+$query = "SELECT SUM(change) as balance from Transactions where acct_src_id = :id";
 $stmt = getDB()->prepare($query);
 $stmt->execute([":id"=>$max]);
 echo var_export($stmt->errorInfo(), true);
