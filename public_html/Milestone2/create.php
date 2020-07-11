@@ -12,7 +12,7 @@ full closing tag-->
 </form>
 <?php
 
-
+}
 if(isset($_POST["created"])) {
     $name = "";
     $balance = -1;
@@ -35,7 +35,6 @@ require("common.inc.php");
 $query = "SELECT MAX(id) as max from Accounts";
 $stmt = getDB()->prepare($query);
 $stmt->execute();
-echo var_export($stmt->errorInfo(), true);
 $r = $stmt->fetch(PDO::FETCH_ASSOC);
 $max = (int)$r["max"];//should really check that this value is given correctly, I'm unsafely using it
 $max += 1;//increment by 1 (since this should be the new id that'll get automatically generated
@@ -51,14 +50,12 @@ $worldAcct = -1;
 //end fetch world account id
 
         $query = "INSERT INTO Transactions(acct_id_src, acct_id_dest, change, type) VALUES (:src, :dest, :change, :type)";
-        
        
         if(isset($query) && !empty($query)) {
-            $stmt = getDB()->prepare("SELECT id from Accounts where account_number = :ac");
+            $stmt = getDB()->prepare($query);
 //part 1
 $balance *= -1;//flip
             $result = $stmt->execute(array(
-            echo var_export($stmt->errorInfo(), true);
                 ":src" => $worldAcct,
                 ":dest" => $max, //<- should really get the last insert ID from the account query, but $max "should" be accurate
 ":change"=>$balance,
@@ -75,16 +72,14 @@ $balance *= -1;//flip
 //get new balance
 $query = "SELECT SUM(change) as balance from Transactions where acct_src_id = :acct";
 $stmt = getDB()->prepare($query);
-$stmt->execute([":id"=>$max]);
-$stmt->execute([":ac"=>"000000000000"]);
+$stmt->execute(":id"=>$max);
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 //TODO, should properly check to see if we have data and all
 $sum = (int)$result["balance"];
 //update balance
 $query = "UPDATE Accounts set balance = :bal where id = :id";
 $stmt = getDB()->prepare($query);
-$stmt->execute([":bal"=>$sum, ":id"=>$max]);
-$worldAccount = $result["id"];
+$stmt->execute(":bal"=>$sum, ":id"=>$max);
         }
         else{
             echo "Failed to find Insert_table_Accounts.sql file";
