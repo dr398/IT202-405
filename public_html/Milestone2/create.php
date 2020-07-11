@@ -57,7 +57,7 @@ $worldAcct = -1;
             $stmt = getDB()->prepare($query);
 //part 1
 $balance *= -1;//flip
-            $result = $stmt->execute(array(
+            $result = $stmt->execute(array());
             echo var_export($stmt->errorInfo(), true);
                 ":src" => $worldAcct,
                 ":dest" => $max, //<- should really get the last insert ID from the account query, but $max "should" be accurate
