@@ -44,7 +44,7 @@ $account_number = str_pad($str,12,"0",STR_PAD_LEFT);//read it https://www.w3scho
 //insert the new account number and associate it with the logged in user
 $query = "INSERT INTO Accounts(account_number, user_id, name) VALUES(:an, :id, :name)";
 $stmt = getDB()->prepare($query);
-$stmt->execute(array(":an"=>$account_number, ":id"=>$_SESSION["id"], ":name"=>$name));
+$stmt->execute(array(":an"=>$account_number, ":id"=>$_SESSION["user"]["id"], ":name"=>$name));
 echo var_export($stmt->errorInfo(), true);
 $worldAcct = -1;
 //TODO fetch world account from DB so we can get the ID, I defaulted to -1 so you implement this portion. Do not hard code the value here.
@@ -57,14 +57,17 @@ $worldAcct = -1;
             $stmt = getDB()->prepare($query);
 //part 1
 $balance *= -1;//flip
-            $result = $stmt->execute(array(':name' => $name);
+            $result = $stmt->execute
+            (array(':name' => $name,
                 ":src" => $worldAcct,
                 ":dest" => $max, //<- should really get the last insert ID from the account query, but $max "should" be accurate
-":change"=>$balance,
-":type"=>"deposit", //or it can be "create" or "new" if you want to distinguish between deposit and opening an account
+                ":change"=>$balance,
+                ":type"=>"deposit" //or it can be "create" or "new" if you want to distinguish between deposit and opening an account
+
+            )
+         );
 echo var_export($stmt->errorInfo(), true);
-            ));
-//part 2
+  //part 2
 $balance *= -1;//flip
             $result = $stmt->execute(array(
                 ":src" => $max,
