@@ -84,7 +84,6 @@ $sum = (int)$result["balance"];
 $query = "UPDATE Accounts set balance = :bal where id = :id";
 $stmt = getDB()->prepare($query);
 $stmt->execute([":bal"=>$sum, ":id"=>$max]);
-echo var_export($stmt->errorInfo(), true);
 $worldAccount = $result["id"];
         }
         else{
