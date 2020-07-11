@@ -76,16 +76,16 @@ $balance *= -1;//flip
 //get new balance
 $query = "SELECT SUM(change) as balance from Transactions where acct_src_id = :acct";
 $stmt = getDB()->prepare($query);
-$stmt->execute([":id"=>$max]);
 echo var_export($stmt->errorInfo(), true);
+$stmt->execute([":id"=>$max]);
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 //TODO, should properly check to see if we have data and all
 $sum = (int)$result["balance"];
 //update balance
 $query = "UPDATE Accounts set balance = :bal where id = :id";
 $stmt = getDB()->prepare($query);
-$stmt->execute([":bal"=>$sum, ":id"=>$max]);
 echo var_export($stmt->errorInfo(), true);
+$stmt->execute([":bal"=>$sum, ":id"=>$max]);
         }
         else{
             echo "Failed to find Insert_table_Accounts.sql file";
