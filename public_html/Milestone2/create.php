@@ -77,7 +77,6 @@ $balance *= -1;//flip
 $query = "SELECT SUM(change) as balance from Transactions where acct_src_id = :acct";
 $stmt = getDB()->prepare($query);
 $stmt->execute([":id"=>$max]);
-echo var_export($stmt->errorInfo(), true);
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 //TODO, should properly check to see if we have data and all
 $sum = (int)$result["balance"];
