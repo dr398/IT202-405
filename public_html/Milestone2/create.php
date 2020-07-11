@@ -86,6 +86,7 @@ $query = "UPDATE Accounts set balance = :bal where id = :id";
 $stmt = getDB()->prepare($query);
 $stmt->execute([":bal"=>$sum, ":id"=>$max]);
 echo var_export($stmt->errorInfo(), true);
+            
         }
         else{
             echo "Failed to find Insert_table_Accounts.sql file";
