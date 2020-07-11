@@ -12,7 +12,7 @@ full closing tag-->
 </form>
 <?php
 
-}
+
 if(isset($_POST["created"])) {
     $name = "";
     $balance = -1;
