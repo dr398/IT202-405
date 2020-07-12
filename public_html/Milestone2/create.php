@@ -74,8 +74,8 @@ $balance *= -1;//flip
                 ":dest" => $worldAcct, //<- should really get the last insert ID from the account query, but $max "should" be accurate
 ":change"=>$balance,
 ":type"=>"deposit", //or it can be "create" or "new" if you want to distinguish between deposit and opening an account
-echo var_export($stmt->errorInfo(), true);
             ));
+echo var_export($stmt->errorInfo(), true);
 //get new balance
 $query = "SELECT SUM(change) as balance from Transactions where acct_src_id = :id";
 $stmt = getDB()->prepare($query);
