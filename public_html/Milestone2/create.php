@@ -51,7 +51,7 @@ $worldAcct = -1;
 //$worldAcct = $result["id"];
 //end fetch world account id
 
-        $query = "INSERT INTO Transactions(acct_id_src, acct_id_dest, change, type) VALUES (:src, :dest, :change, :type)";
+        $query = "INSERT INTO Transactions(acct_id_src, acct_id_dest,`change`, `type`) VALUES (:src, :dest, :change, :type)";
        
         if(isset($query) && !empty($query)) {
             $stmt = getDB()->prepare($query);
