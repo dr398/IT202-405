@@ -46,12 +46,17 @@ $query = "INSERT INTO Accounts(account_number, user_id, name) VALUES(:an, :id, :
 $stmt = getDB()->prepare($query);
 $stmt->execute(array(":an"=>$account_number, ":id"=>$_SESSION["user"]["id"], ":name"=>$name));
 echo var_export($stmt->errorInfo(), true);
-$worldAcct = -1;
-//TODO fetch world account from DB so we can get the ID, I defaulted to -1 so you implement this portion. Do not hard code the value here.
-//$worldAcct = $result["id"];
+$worldAcct = 000000000000;
+$query = "Select id from Accounts where account_number = '000000000000'"; //TODO fetch world account from DB so we can get the ID, I defaulted to -1 so you implement this portion. Do not hard code the value here.
+$stmt = getDB()->prepare($query);
+$stmt->execute();
+echo var_export($stmt->errorInfo(), true);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$worldAcct = $result["id"];
 //end fetch world account id
 
         $query = "INSERT INTO Transactions(acct_id_src, acct_id_dest,`change`, `type`) VALUES (:src, :dest, :change, :type)";
+        
        
         if(isset($query) && !empty($query)) {
             $stmt = getDB()->prepare($query);
