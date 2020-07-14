@@ -58,7 +58,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 $worldAcct = $result["id"];
 //end fetch world account id
 
-        $query = "INSERT INTO Transactions(acct_id_src, acct_id_dest,`change`, `type`) VALUES (:src, :dest, :change, :type)";
+        $query = "INSERT INTO Transactions(act_id_src, act_id_dest,`change`, `type`) VALUES (:src, :dest, :change, :type)";
          echo "<br>$query<br>";
         
        
@@ -86,7 +86,7 @@ $balance *= -1;//flip
             ));
 echo var_export($stmt->errorInfo(), true);
 //get new balance
-$query = "SELECT SUM(change) as balance from Transactions where acct_src_id = :id";
+$query = "SELECT SUM('change') as balance from Transactions where act_src_id = :id";
  echo "<br>$query<br>";
 $stmt = getDB()->prepare($query);
 $stmt->execute([":id"=>$max]);
