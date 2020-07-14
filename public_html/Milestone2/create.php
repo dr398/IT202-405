@@ -63,7 +63,7 @@ $worldAcct = $result["id"];
 //part 1
 $balance *= -1;//flip
             $result = $stmt->execute
-            (array(':name' => $name,
+            (array(
                 ":src" => $worldAcct,
                 ":dest" => $max, //<- should really get the last insert ID from the account query, but $max "should" be accurate
                 ":change"=>$balance,
