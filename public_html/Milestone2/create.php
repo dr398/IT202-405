@@ -33,6 +33,7 @@ if(isset($_POST["created"])) {
 require("common.inc.php");
 //find the max id in the table
 $query = "SELECT MAX(id) as max from Accounts";
+echo "<br>$query<br>";
 $stmt = getDB()->prepare($query);
 $stmt->execute();
 echo var_export($stmt->errorInfo(), true);
@@ -43,11 +44,13 @@ $max += 1;//increment by 1 (since this should be the new id that'll get automati
 $account_number = str_pad($str,12,"0",STR_PAD_LEFT);//read it https://www.w3schools.com/php/func_string_str_pad.asp
 //insert the new account number and associate it with the logged in user
 $query = "INSERT INTO Accounts(account_number, user_id, name) VALUES(:an, :id, :name)";
+echo "<br>$query<br>";
 $stmt = getDB()->prepare($query);
 $stmt->execute(array(":an"=>$account_number, ":id"=>$_SESSION["user"]["id"], ":name"=>$name));
 echo var_export($stmt->errorInfo(), true);
 $worldAcct = 000000000000;
 $query = "Select id from Accounts where account_number = '000000000000'"; //TODO fetch world account from DB so we can get the ID, I defaulted to -1 so you implement this portion. Do not hard code the value here.
+ echo "<br>$query<br>";
 $stmt = getDB()->prepare($query);
 $stmt->execute();
 echo var_export($stmt->errorInfo(), true);
@@ -56,6 +59,7 @@ $worldAcct = $result["id"];
 //end fetch world account id
 
         $query = "INSERT INTO Transactions(acct_id_src, acct_id_dest,`change`, `type`) VALUES (:src, :dest, :change, :type)";
+         echo "<br>$query<br>";
         
        
         if(isset($query) && !empty($query)) {
@@ -83,6 +87,7 @@ $balance *= -1;//flip
 echo var_export($stmt->errorInfo(), true);
 //get new balance
 $query = "SELECT SUM(change) as balance from Transactions where acct_src_id = :id";
+ echo "<br>$query<br>";
 $stmt = getDB()->prepare($query);
 $stmt->execute([":id"=>$max]);
 echo var_export($stmt->errorInfo(), true);
@@ -91,6 +96,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 $sum = (int)$result["balance"];
 //update balance
 $query = "UPDATE Accounts set balance = :bal where id = :id";
+ echo "<br>$query<br>";
 $stmt = getDB()->prepare($query);
 $stmt->execute([":bal"=>$sum, ":id"=>$max]);
 echo var_export($stmt->errorInfo(), true);
