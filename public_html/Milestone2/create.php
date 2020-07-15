@@ -76,6 +76,7 @@ $balance *= -1;//flip
             )
          );
 echo var_export($stmt->errorInfo(), true);
+echo "<br>$query<br>";
   //part 2
 $balance *= -1;//flip
             $result = $stmt->execute(array(
