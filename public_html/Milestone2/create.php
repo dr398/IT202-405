@@ -58,7 +58,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 $worldAcct = $result["id"];
 //end fetch world account id
 
-        $query = "INSERT INTO Transactions(act_src_id, act_dest_id,`amount`, `type`) VALUES (:src, :dest, :amount, :type)";
+        $query = "INSERT INTO Transactions(act_src_id, act_dest_id,`amount`, `type`) VALUES (:src, :dest, :change, :type)";
          echo "<br>$query<br>";
         
        
