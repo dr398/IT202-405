@@ -43,6 +43,8 @@ $max += 1;//increment by 1 (since this should be the new id that'll get automati
 //pad the number with 0s to the left (this will fit the requirement and be unique since it's based on id
 $account_number = str_pad($str,12,"0",STR_PAD_LEFT);//read it https://www.w3schools.com/php/func_string_str_pad.asp
 //insert the new account number and associate it with the logged in user
+echo $max;
+echo $account_number;
 $query = "INSERT INTO Accounts(account_number, user_id, name) VALUES(:an, :id, :name)";
 echo "<br>$query<br>";
 $stmt = getDB()->prepare($query);
