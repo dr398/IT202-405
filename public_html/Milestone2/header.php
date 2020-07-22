@@ -18,6 +18,9 @@ session_start();
             <a href="register.php">Register</a>
         </li>
         <li>
+            <a href="create.php">Home</a>
+        </li>
+        <li>
             <a href="logout.php">Logout</a>
         </li>
     </ul>
