@@ -11,7 +11,7 @@ full closing tag-->
     <input type="submit" name="created" value="Create Account"/>
 </form>
 <?php
-if(!isset($_SESSION["user"]){
+if(!isset($_SESSION["user"])){
 die(header("Location: login.php"));
 //This code redirects non-logged in users to login page
 }
