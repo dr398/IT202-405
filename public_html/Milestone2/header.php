@@ -18,7 +18,7 @@ session_start();
             <a href="register.php">Register</a>
         </li>
         <li>
-            <a href="create.php">Home</a>
+            <a href="create.php">Create</a>
         </li>
         <li>
             <a href="logout.php">Logout</a>
