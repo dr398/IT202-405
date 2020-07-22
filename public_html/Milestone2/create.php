@@ -33,7 +33,6 @@ if(isset($_POST["created"])) {
         die();//terminates the rest of the script
     }
     try {
-require("common.inc.php");
 //find the max id in the table
 $query = "SELECT MAX(id) as max from Accounts";
 echo "<br>$query<br>";
