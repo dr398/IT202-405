@@ -24,8 +24,8 @@ if(isset($_POST["login"])){
 		//require("config.php");
 			$connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 			try{
-				$db = new PDO($connection_string, $dbuser, $dbpass);
-				$stmt = $db->prepare("SELECT * FROM Users where email = :email LIMIT 1");
+			
+				$stmt = getDB()->prepare("SELECT * FROM Users where email = :email LIMIT 1");
 				$stmt->execute(array(
 					":email" => $email
 				));
