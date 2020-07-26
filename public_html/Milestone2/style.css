@@ -1,11 +1,11 @@
 body{
-    background-color: darkseablue;
+    background-color: blue;
 }
 nav {
     clear: left;
     margin: 0px;
     padding: 0;
-    border-bottom: 3px solid darkslatered;
+    border-bottom: 3px solid darkslategrey;
     display: block;
     text-align: center;
 }
@@ -41,5 +41,5 @@ h3 {
 h1{
     text-align: center;
     font-family: monospace;
-    color: darkslatered;
+    color: darkslategrey;
 }
