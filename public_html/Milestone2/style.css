@@ -18,13 +18,13 @@ nav ul {
 nav li{
     display: inline;
     padding: 8px;
-    background-color: beige;
+    background-color: yellow;
 }
 input {
     background-color: bisque;
 }
 label {
-    border: 1px solid lightgreen;
+    border: 1px solid lightblue;
 }
 form {
     width:90%;
