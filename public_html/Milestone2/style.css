@@ -24,7 +24,7 @@ input {
     background-color: yellow;
 }
 label {
-    border: 1px solid red;
+    border: 1px solid #ADFF2F;
 }
 form {
     width:90%;
