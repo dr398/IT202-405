@@ -1,5 +1,5 @@
 body{
-    background-color: skyblue;
+    background-color: blue;
 }
 nav {
     clear: left;
@@ -18,10 +18,10 @@ nav ul {
 nav li{
     display: inline;
     padding: 8px;
-    background-color: beige;
+    background-color: blue;
 }
 input {
-    background-color: bisque;
+    background-color: blue;
 }
 label {
     border: 1px solid lightgreen;
