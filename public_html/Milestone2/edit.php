@@ -76,7 +76,7 @@ if($thingId > -1){
     }
 }
 else{
-    echo "No accountId provided in url, don't forget this or sample won't work.";
+    echo "<b>Edit</b>";
 }
 ?>
 <script src="js/script.js"></script>
