@@ -60,6 +60,7 @@ if(isset($_POST["updated"])){
 //now my success message appears above the form so I'd have to further restructure my code to get the desired output/layout
 if($accountId > -1){
     $query = file_get_contents(__DIR__ . "/Select_one_table_Accounts.sql");
+    echo var_export($stmt->errorInfo(), true);
     if(isset($query) && !empty($query)) {
         //Note: SQL File contains a "LIMIT 1" although it's not necessary since ID should be unique (i.e., one record)
         try {
