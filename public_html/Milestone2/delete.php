@@ -3,6 +3,7 @@ if (isset($_GET["accountId"]) && !empty($_GET["accountId"])){
     if(is_numeric($_GET["accountId"])){
         $accountId = (int)$_GET["accountId"];
         $query = file_get_contents(__DIR__ . "/Delete_one_table_Accounts.sql");
+        echo var_export($query, true);
         if(isset($query) && !empty($query)) {
             include("header.php");
             $stmt = getDB()->prepare($query);
