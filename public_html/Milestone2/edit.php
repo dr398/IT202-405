@@ -22,7 +22,7 @@ if(isset($_POST["updated"])){
         try{
             $query = NULL;
             echo "[Balance" . $balance . "]";
-            $query = file_get_contents(__DIR__ . "Update_table_Accounts.sql");
+            $query = file_get_contents(__DIR__ . "/Update_table_Accounts.sql");
             if(isset($query) && !empty($query)) {
                 $stmt = getDB()->prepare($query);
                 $result = $stmt->execute(array(
@@ -59,7 +59,7 @@ if(isset($_POST["updated"])){
 //moved the content down here so it pulls the update from the table without having to refresh the page or redirect
 //now my success message appears above the form so I'd have to further restructure my code to get the desired output/layout
 if($accountId > -1){
-    $query = file_get_contents(__DIR__ . "Select_one_table_Accounts.sql");
+    $query = file_get_contents(__DIR__ . "/Select_one_table_Accounts.sql");
     if(isset($query) && !empty($query)) {
         //Note: SQL File contains a "LIMIT 1" although it's not necessary since ID should be unique (i.e., one record)
         try {
