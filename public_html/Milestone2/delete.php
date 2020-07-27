@@ -4,7 +4,7 @@ if (isset($_GET["accountId"]) && !empty($_GET["accountId"])){
         $accountId = (int)$_GET["accountId"];
         $query = file_get_contents(__DIR__ . "/queries/Delete_one_table_Accounts.sql");
         if(isset($query) && !empty($query)) {
-            require("common.inc.php");
+            include("header.php");
             $stmt = getDB()->prepare($query);
             $stmt->execute([":id"=>$accountId]);
             $e = $stmt->errorInfo();
