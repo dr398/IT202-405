@@ -22,7 +22,7 @@ if(isset($_POST["updated"])){
         try{
             $query = NULL;
             echo "[Balance" . $balance . "]";
-            $query = file_get_contents(__DIR__ . "/queries/Update_table_Accounts.sql");
+            $query = file_get_contents(__DIR__ . "Update_table_Accounts.sql");
             if(isset($query) && !empty($query)) {
                 $stmt = getDB()->prepare($query);
                 $result = $stmt->execute(array(
