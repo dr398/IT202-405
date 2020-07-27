@@ -1,5 +1,5 @@
 <head>
-    <title>Dhruval's Site</title>
+    <title>Bank Application</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <?php
