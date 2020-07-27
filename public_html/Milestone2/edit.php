@@ -4,7 +4,7 @@ if(isset($_GET["accountId"]) && !empty($_GET["accountId"])){
     $accountId = $_GET["accountId"];
 }
 $result = array();
-require("common.inc.php");
+include("header.php");
 ?>
 <?php
 if(isset($_POST["updated"])){
