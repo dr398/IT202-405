@@ -28,7 +28,7 @@ if(isset($_POST["updated"])){
                 $result = $stmt->execute(array(
                     ":name" => $name,
                     ":balance" => $balance,
-                    ":id" => $balanceId
+                    ":id" => $accountId
                 ));
                 $e = $stmt->errorInfo();
                 if ($e[0] != "00000") {
