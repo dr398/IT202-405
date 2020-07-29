@@ -23,9 +23,6 @@ session_start();
          <li>
             <a href="edit.php">Edit</a>
         </li>
-         <li>
-            <a href="delete.php">Delete</a>
-        </li>
         <li>
             <a href="logout.php">Logout</a>
         </li>
