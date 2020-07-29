@@ -15,7 +15,7 @@ if(isset($_POST["updated"])){
     }
     if(isset($_POST["balance"]) && !empty($_POST["balance"])){
         if(is_numeric($_POST["balance"])){
-            $quantity = (int)$_POST["balance"];
+            $balance = (int)$_POST["balance"];
         }
     }
     if(!empty($name) && $balance > -1){
