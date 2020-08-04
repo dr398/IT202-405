@@ -17,7 +17,7 @@
 <div>
     <h2 style="text-align:center;color:black; padding-bottom: 20px">Contact Us</h2>
 
-        <h3 style="color:darkslategrey; text-align: center;">New York Divison</h3>
+         <p style="text-align: center"><span class="heading">New York Divison</p>
         <p style="text-align: center"><span class="heading">Address: </span>49 St, New York, NY</p>
         <p style="text-align: center"><span class="heading">Phone: </span>632-111-3845</p>
         <p style="text-align: center; padding-bottom: 10px;"><span class="heading">Email: </span>nydivison@nboa.com</p>
