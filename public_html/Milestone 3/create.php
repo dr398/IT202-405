@@ -118,3 +118,4 @@ echo var_export($stmt->errorInfo(), true);
     }
 }
 ?>
+<?php include 'footer.php';?>
