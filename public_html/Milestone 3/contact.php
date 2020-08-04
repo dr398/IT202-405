@@ -34,10 +34,9 @@
     
         <p style="text-align: center"><span class="heading"><u>Social Media</u></p>
         <p style="text-align: center"><span class="heading">Facebook: </span>https://www.facebook.com/nboa/</p>
-        <p style="text-align: center"><span class="heading">Instagram: </span>https://www.instagram.com/nboa/</p>
           <p style="text-align: center"><span class="heading">Twitter: </span>https://www.twitter.com/nboa/</p>
-        
+        <p style="text-align: center"><span class="heading">Instagram: </span>https://www.instagram.com/nboa/</p>
 
 </div>
 
-<?php include 'footer.php';?>
+
