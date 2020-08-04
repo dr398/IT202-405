@@ -5,7 +5,7 @@ $email=$_SESSION["user"]["email"];
 $accounts=$_SESSION["user"]["accounts"];
 $new_arr = array_column($accounts,'account_number');
 ?>
-<h2>Deposit Money</h2>
+<h2>Deposit</h2>
 
     <form method="POST">
         <label for="name">Account
