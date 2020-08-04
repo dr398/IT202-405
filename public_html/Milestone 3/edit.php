@@ -94,3 +94,4 @@ full closing tag-->
 </label>
 <input type="submit" name="updated" value="Update Account"/>
 </form>
+<?php include 'footer.php';?>
