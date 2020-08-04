@@ -18,10 +18,13 @@ session_start();
             <a href="register.php">Register</a>
         </li>
         <li>
-            <a href="create.php">Create</a>
+            <a href="create.php">Create an account </a>
         </li>
          <li>
-            <a href="edit.php">Edit</a>
+            <a href="transaction.php">Make a Transaction</a>
+        </li>
+         <li>
+            <a href="edit.php">Edit your account</a>
         </li>
         <li>
             <a href="logout.php">Logout</a>
