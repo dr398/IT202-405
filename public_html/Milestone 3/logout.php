@@ -16,4 +16,4 @@ if (ini_get("session.use_cookies")) {
     ); 
 } 
 ?>
-<?php include 'footer.php';?>
+<?php include 'footerinfo.php';?>
