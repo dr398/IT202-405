@@ -32,7 +32,7 @@
         <p style="text-align: center"><span class="heading">Phone: </span>222-194-9345</p>
         <p style="text-align: center; padding-bottom: 10px;"><span class="heading">Email: </span>nashvilledivison@nboa.com</p>
     
-        <h3 style="color:darkslategrey; text-align: center;"><u>Social Media</u></h3>
+        <p style="text-align: center"><span class="heading"><u>Social Media</u></p>
         <p style="text-align: center"><span class="heading">Facebook: </span>https://www.facebook.com/nboa/</p>
         <p style="text-align: center"><span class="heading">Instagram: </span>https://www.instagram.com/nboa/</p>
           <p style="text-align: center"><span class="heading">Twitter: </span>https://www.twitter.com/nboa/</p>
