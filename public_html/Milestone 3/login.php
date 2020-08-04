@@ -64,4 +64,4 @@ if(isset($_POST["login"])){
 	}
 }
 ?>
-<?php include 'footer.php';?>
+<?php include 'footerinfo.php';?>
