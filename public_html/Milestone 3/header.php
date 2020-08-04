@@ -1,5 +1,5 @@
 <head>
-    <title>Bank Application</title>
+    <title>National Bank of America</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <?php
