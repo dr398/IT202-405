@@ -15,22 +15,22 @@
 </head>
 
 <div>
-    <h2 style="text-align:center;color:black; padding-bottom: 20px">Contact Us</h2>
+    <h2 style="text-align:center;color:black; padding-bottom: 20px">Three Divisons of National Bank of America</h2>
 
-        <h3 style="color:darkslategrey; text-align: center;"><u>India Branch</u></h3>
-        <p style="text-align: center"><span class="heading">Address: </span>PSB, Maharashtra, Mumbai</p>
-        <p style="text-align: center"><span class="heading">Phone: </span>+91 9123 4567</p>
-        <p style="text-align: center; padding-bottom: 10px;"><span class="heading">Email: </span>psbbranch.in@psb.co</p>
+        <h3 style="color:darkslategrey; text-align: center;"><u>New York Divison</u></h3>
+        <p style="text-align: center"><span class="heading">Address: </span>49 St, New York, NY</p>
+        <p style="text-align: center"><span class="heading">Phone: </span>632-111-3845</p>
+        <p style="text-align: center; padding-bottom: 10px;"><span class="heading">Email: </span>nydivison@nboa.com</p>
 
-        <h3 style="color:darkslategrey; text-align: center;"><u>Australia Branch</u></h3>
-        <p style="text-align: center"><span class="heading">Address: </span>PSB, Sydney, Australia</p>
-        <p style="text-align: center"><span class="heading">Phone: </span>+61 0245 6789</p>
-        <p style="text-align: center; padding-bottom: 10px;"><span class="heading">Email: </span>psbbranch.au@psb.co</p>
+        <h3 style="color:darkslategrey; text-align: center;"><u>Boston Divison</u></h3>
+        <p style="text-align: center"><span class="heading">Address: </span>2 Market Ave,Boston, Massachusetts</p>
+        <p style="text-align: center"><span class="heading">Phone: </span>823-294-0011</p>
+        <p style="text-align: center; padding-bottom: 10px;"><span class="heading">Email: </span>bostondivison@nboa.com</p>
 
-        <h3 style="color:darkslategrey; text-align: center;"><u>Canada Branch</u></h3>
-        <p style="text-align: center"><span class="heading">Address: </span>PSB, Ontario, Canada</p>
-        <p style="text-align: center"><span class="heading">Phone: </span>+1 226 1234</p>
-        <p style="text-align: center; padding-bottom: 10px;"><span class="heading">Email: </span>psbbranch.ca@psb.co</p>
+        <h3 style="color:darkslategrey; text-align: center;"><u>Nashville Divison</u></h3>
+        <p style="text-align: center"><span class="heading">Address: </span>23 Greg Blvd, Nashville,Tennessee</p>
+        <p style="text-align: center"><span class="heading">Phone: </span>222-194-9345</p>
+        <p style="text-align: center; padding-bottom: 10px;"><span class="heading">Email: </span>nashvilledivison@nboa.com</p>
 
 </div>
 
