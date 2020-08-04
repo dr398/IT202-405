@@ -9,7 +9,7 @@
             <li>Please do not use public WiFi for private banking.</li>
             <li>Change your password frequently so your account can not be unaccessable by strangers. </li>
             <li>Stay alert with our banking notifications to be up to date with our system. </li>
-            <li>Know your transactions, keep track with your deposits, withdrawls, and trasnfers.</li>
+            <li>Know your transactions, keep track of your deposits, withdrawls, and transfers.</li>
             <li>If you see any suspicious activity in your account please contact us immediately.</li>
         </ul>
 
