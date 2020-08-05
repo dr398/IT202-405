@@ -46,7 +46,7 @@ $worldAcct = $result["id"];
 //end fetch world account id
                 
                 $balance = $balance * -1;
-                $stmt = getDB()->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,acc,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
+                $stmt = getDB()->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
                 $result = $stmt->execute(array(
                     ":acc_num" => "id",
                     ":accnum1" => $name,
