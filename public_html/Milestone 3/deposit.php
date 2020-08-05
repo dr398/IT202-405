@@ -36,7 +36,17 @@ if(isset($_POST["Deposit"])) {
         if (!empty($name) && !empty($balance)) {
 
             try {
-
+              
+$worldAcct = 000000000000;
+$query = "Select id from Accounts where account_number = '000000000000'"; //TODO fetch world account from DB so we can get the ID, I defaulted to -1 so you implement this portion. Do not hard code the value here.
+ echo "<br>$query<br>";
+$stmt = getDB()->prepare($query);
+$stmt->execute();
+echo var_export($stmt->errorInfo(), true);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$worldAcct = $result["id"];
+//end fetch world account id
+                
                 $balance = $balance * -1;
                 $stmt = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,acc,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
                 $result = $stmt->execute(array(
