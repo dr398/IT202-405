@@ -13,24 +13,24 @@ $new_arr = array_column($accounts,'account_number');
         <input type="text" id="name" name="name" value="<?php echo $account; ?>">
 
         <label for="balance">Amount
-            <input type="number" id="balance" name="Balance" />
+            <input type="number" id="balance" name="balance" />
         </label>
-        <input type="submit" name="Deposit" value="Deposit"/>
+        <input type="submit" name="deposit" value="deposit"/>
     </form>
 
 <?php
 
-if(isset($_POST["Deposit"])) {
+if(isset($_POST["deposit"])) {
     echo var_export($_POST, true);
-    $name = $_POST["Name"];
-    $balance = $_POST["Balance"];
+    $name = $_POST["name"];
+    $balance = $_POST["balance"];
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         $stmt1 = getDB()->prepare("SELECT * FROM Accounts where account_number=:acc");
         $stmt1->execute(array(
             ":acc" => $name
         ));
         $result = $stmt1->fetchAll();
-        $amount = $result[0]["Balance"];
+        $amount = $result[0]["balance"];
         $amount = $amount + $balance;
         if (!empty($name) && !empty($balance)) {
 
@@ -51,7 +51,7 @@ $worldAcct = $result["id"];
                 $result = $stmt->execute(array(
                     ":acc_num" => $worldAcct,
                     ":accnum1" => $id,
-                    ":type" => "Deposit",
+                    ":type" => "deposit",
                     ":balance" => $balance,
                     ":expected_balance" => $balance
                 ));
@@ -66,7 +66,7 @@ $worldAcct = $result["id"];
                 $result1 = $stmt2->execute(array(
                     ":acc_num" => $id,
                     ":accnum1" => $worldAcct,
-                    ":type" => "Deposit",
+                    ":type" => "deposit",
                     ":balance" => $balance,
                     ":expected_balance" => $amount
                 ));
