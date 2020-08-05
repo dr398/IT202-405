@@ -26,7 +26,7 @@ if(isset($_POST["Deposit"])) {
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         $db = new PDO($connection_string, $dbuser, $dbpass);
-        $stmt1 = $db->prepare("SELECT * FROM Accounts where account_number=:acc");
+        $stmt1 = getDB()->prepare("SELECT * FROM Accounts where account_number=:acc");
         $stmt1->execute(array(
             ":acc" => $name
         ));
@@ -48,7 +48,7 @@ $worldAcct = $result["id"];
 //end fetch world account id
                 
                 $balance = $balance * -1;
-                $stmt = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,acc,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
+                $stmt = getDB()->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,acc,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
                 $result = $stmt->execute(array(
                     ":acc_num" => "id",
                     ":accnum1" => $name,
@@ -63,7 +63,7 @@ $worldAcct = $result["id"];
                 }
                 $balance = $balance * -1;
                 echo $balance;
-                $stmt2 = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
+                $stmt2 = getDB()->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
                 $result1 = $stmt2->execute(array(
                     ":acc1" => $name,
                     ":acc" => "000000000000",
@@ -76,7 +76,7 @@ $worldAcct = $result["id"];
                     var_dump($e);
                     $stmt2->debugDumpParams();
                 }
-                $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE act_src_id=:accnum) where account_number=:acc_num");
+                $stmt = getDB()->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE act_src_id=:accnum) where account_number=:acc_num");
                 $result = $stmt->execute(array(
                     ":acc_num" => $name
                 ));
@@ -94,7 +94,7 @@ $worldAcct = $result["id"];
             echo "<div>Account name and amount must not be empty. Amount of deposit should be at least $5.<div>";
         }
     }
-    $stmt = $db->prepare("SELECT * FROM Accounts");
+    $stmt = getDB()->prepare("SELECT * FROM Accounts");
     $stmt->execute();
     ?>
 <?php include 'footerinfo.php';?>
