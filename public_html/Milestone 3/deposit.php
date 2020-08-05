@@ -24,7 +24,6 @@ if(isset($_POST["Deposit"])) {
     $name = $_POST["Name"];
     $balance = $_POST["Balance"];
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
-        $db = new getDB()($connection_string, $dbuser, $dbpass);
         $stmt1 = getDB()->prepare("SELECT * FROM Accounts where account_number=:acc");
         $stmt1->execute(array(
             ":acc" => $name
