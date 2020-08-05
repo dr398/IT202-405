@@ -3,8 +3,8 @@ include("header.php");
 
 $email=$_SESSION["user"]["email"];
 $accounts=$_SESSION["user"]["accounts"];
-$new_arr = array_column($accounts,'acc_num');
-$account=$_GET["acc_num"];
+$new_arr = array_column($accounts,'account_number');
+$account=$_GET["account_number"];
 ?>
 <h2>Withdraw</h2>
 
@@ -27,7 +27,7 @@ if(isset($_POST["Withdraw"])){
     require("config.php");
     $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
     $db = new PDO($connection_string, $dbuser, $dbpass);
-    $stmt1 = $db->prepare("SELECT * FROM Accounts where acc_num=:acc");
+    $stmt1 = $db->prepare("SELECT * FROM Accounts where account_number=:acc");
     $stmt1->execute(array(
         ":acc" => $name
     ));
@@ -38,7 +38,7 @@ if(isset($_POST["Withdraw"])){
 
         try{
 
-            $stmt = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acctype,amount,exp_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
+            $stmt = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
             $result = $stmt->execute(array(
                 ":acc_num" => $name,
                 ":accnum1" => "000000000000",
@@ -53,7 +53,7 @@ if(isset($_POST["Withdraw"])){
             }
             $balance =$balance * -1;
             echo $balance;
-            $stmt2 = $db->prepare("INSERT INTO Transactions (acc_src_id, acc_dest_id,acctype,amount,exp_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
+            $stmt2 = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
             $result1 = $stmt2->execute(array(
                 ":acc1" => "000000000000",
                 ":acc" => $name,
@@ -66,7 +66,7 @@ if(isset($_POST["Withdraw"])){
                 var_dump($e);
                 $stmt2->debugDumpParams();
             }
-            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE acc_src_id=:acc_num) where acc_num=:acc_num");
+            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE act_src_id=:acc_num) where account_number=:acc_num");
             $result = $stmt->execute(array(
                 ":acc_num" => $name
             ));
