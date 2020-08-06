@@ -49,3 +49,4 @@ note the structure and the ":" -->
 <?php else:?>
     <p>This shows when we don't have results</p>
 <?php endif;?>
+<?php include 'footerinfo.php';?>
