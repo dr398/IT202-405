@@ -1,4 +1,5 @@
 <?php
+include("header.php");
 require("common.inc.php");
 try{
     $query = file_get_contents(__DIR__ . "/Accounts_Table.sql");
