@@ -20,6 +20,16 @@ $new_arr = array_column($accounts,'account_number');
 
 <?php
 
+<select name = "Accounts">
+<?php
+while($rows = $resultSet->fetch_assoc())
+(
+    $name = $rows['name'];
+    echo "<option value = '$name'>$name</option>;
+)
+?>
+</select>
+
 if(isset($_POST["deposit"])) {
     echo var_export($_POST, true);
     $name = $_POST["name"];
