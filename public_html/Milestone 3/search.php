@@ -5,7 +5,7 @@ if(isset($_POST["search"])){
     $search = $_POST["search"];
 }
 ?>
-<h2>Search an account</h2>
+<h1>Search an account</h1>
 
 <form method="POST">
     <input type="text" name="search" placeholder="Search for Account"
@@ -15,7 +15,7 @@ if(isset($_POST["search"])){
 <?php
 if(isset($search)) {
 
-    require("common.inc.php");
+    
     $query = file_get_contents(__DIR__ . "/Search_table_Accounts.sql");
     if (isset($query) && !empty($query)) {
         try {
