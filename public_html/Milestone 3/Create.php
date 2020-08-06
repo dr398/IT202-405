@@ -9,6 +9,7 @@
 </form>
 
 <?php
+include("header.php");
 if(isset($_POST["created"])){
     $name = $_POST["name"];
     $balance = $_POST["balance"];
