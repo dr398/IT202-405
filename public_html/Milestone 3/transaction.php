@@ -6,7 +6,7 @@ include ("header.php");
 
     <ul>
         <li>
-            <a href="deposit.php">Deposit Money</a>
+            <a href="edit.php">Deposit Money</a>
         </li>
         <li>
             <a href="withdraw.php">Withdraw Money</a>
