@@ -2,7 +2,7 @@
 if (isset($_GET["accountId"]) && !empty($_GET["accountId"])){
     if(is_numeric($_GET["accountId"])){
         $accountId = (int)$_GET["accountId"];
-        $query = file_get_contents(__DIR__ . "/queries/Delete_one_table_Accounts.sql");
+        $query = file_get_contents(__DIR__ . "Delete_one_table_Accounts.sql");
         if(isset($query) && !empty($query)) {
             require("common.inc.php");
             $stmt = getDB()->prepare($query);
