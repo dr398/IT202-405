@@ -18,7 +18,7 @@ $new_arr = array_column($accounts,'account_number');
         <input type="submit" name="deposit" value="deposit"/>
     </form>
 
-
+<?php
 if(isset($_POST["deposit"])) {
     echo var_export($_POST, true);
     $name = $_POST["name"];
