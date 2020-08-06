@@ -28,7 +28,7 @@ while($rows = $resultSet->fetch_assoc())
     echo "<option value = '$name'>$name</option>;
 )
 </select>
-<?
+?>
 
 if(isset($_POST["deposit"])) {
     echo var_export($_POST, true);
