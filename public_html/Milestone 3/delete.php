@@ -24,3 +24,4 @@ if (isset($_GET["accountId"]) && !empty($_GET["accountId"])){
 else{
     echo "Invalid account to delete";
 }
+<?php include 'footerinfo.php';?>
