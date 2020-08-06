@@ -18,7 +18,6 @@ $new_arr = array_column($accounts,'account_number');
         <input type="submit" name="deposit" value="deposit"/>
     </form>
 
-<?php
 
 <select name = "Accounts">
 <?php
