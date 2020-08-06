@@ -1,6 +1,6 @@
 <?php
 require("common.inc.php");
-$query = file_get_contents(__DIR__ . "Select_all_table_Accounts.sql");
+$query = file_get_contents(__DIR__ . "/Select_all_table_Accounts.sql");
 if(isset($query) && !empty($query)){
     try {
         $stmt = getDB()->prepare($query);
