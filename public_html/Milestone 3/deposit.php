@@ -18,9 +18,8 @@ $new_arr = array_column($accounts,'account_number');
         <input type="submit" name="deposit" value="deposit"/>
     </form>
 
-
-<select name = "Accounts">
 <?php
+<select name = "Accounts">
 while($rows = $resultSet->fetch_assoc())
 (
     $name = $rows['name'];
