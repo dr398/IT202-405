@@ -1,8 +1,8 @@
 <?php
+include("header.php");
 $search = "";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
-include("header.php");
 }
 ?>
 <form method="POST">
