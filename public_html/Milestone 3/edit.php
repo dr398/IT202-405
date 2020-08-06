@@ -77,7 +77,7 @@ if($accountId > -1){
     }
 }
 else{
-    echo "<b>Edit</b>";
+    echo "<b>Deposit</b>";
 }
 ?>
 <script src="js/script.js"></script>
@@ -90,8 +90,8 @@ full closing tag-->
 </label>
 <label for="b">Balance
     <!-- We also added a minimum value for our number field-->
-    <input type="number" id="b" name="balance" value="<?php echo get($result, "balance");?>" required min="0"/>
+    <input type="number" id="b" name="Add value" value="<?php echo get($result, "balance");?>" required min="0"/>
 </label>
-<input type="submit" name="updated" value="Update Account"/>
+<input type="submit" name="updated" value="Deposit"/>
 </form>
 <?php include 'footerinfo.php';?>
