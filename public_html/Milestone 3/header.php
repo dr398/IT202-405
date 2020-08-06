@@ -23,9 +23,6 @@ session_start();
          <li>
             <a href="transaction.php">Make a Transaction</a>
         </li>
-         <li>
-            <a href="edit.php">Edit your account</a>
-        </li>
         <li>
             <a href="logout.php">Logout</a>
         </li>
