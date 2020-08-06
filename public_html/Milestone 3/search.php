@@ -5,6 +5,8 @@ if(isset($_POST["search"])){
     $search = $_POST["search"];
 }
 ?>
+<h2>Search an account</h2>
+
 <form method="POST">
     <input type="text" name="search" placeholder="Search for Account"
     value="<?php echo $search;?>"/>
