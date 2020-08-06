@@ -13,7 +13,7 @@ if(isset($_POST["search"])){
 if(isset($search)) {
 
     require("common.inc.php");
-    $query = file_get_contents(__DIR__ . "Search_table_Accounts.sql");
+    $query = file_get_contents(__DIR__ . "/Search_table_Accounts.sql");
     if (isset($query) && !empty($query)) {
         try {
             $stmt = getDB()->prepare($query);
