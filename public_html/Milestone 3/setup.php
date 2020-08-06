@@ -23,3 +23,4 @@ catch (Exception $e){
     echo $e->getMessage();
 }
 ?>
+<?php include 'footerinfo.php';?>
