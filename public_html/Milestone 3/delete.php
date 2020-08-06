@@ -1,4 +1,5 @@
 <?php
+include("header.php");
 if (isset($_GET["accountId"]) && !empty($_GET["accountId"])){
     if(is_numeric($_GET["accountId"])){
         $accountId = (int)$_GET["accountId"];
