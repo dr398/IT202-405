@@ -14,20 +14,18 @@ $account=$_GET["account_number"];
         </label>
 
         <label for="balance">Amount
-            <input type="number" id="balance" name="Balance" />
+            <input type="number" id="Balance" name="Balance" />
         </label>
         <input type="submit" name="Withdraw" value="Withdraw"/>
     </form>
 <?php
-require("common.inc.php");
+
 if(isset($_POST["Withdraw"])){
     $name = $_POST["Name"];
     $balance = $_POST["Balance"];
     $balance=$balance * -1;
-    require("config.php");
     $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
-    $db = new PDO($connection_string, $dbuser, $dbpass);
-    $stmt1 = $db->prepare("SELECT * FROM Accounts where account_number=:acc");
+    $stmt1 = getDB()->prepare("SELECT * FROM Accounts where account_number=:acc");
     $stmt1->execute(array(
         ":acc" => $name
     ));
@@ -37,11 +35,20 @@ if(isset($_POST["Withdraw"])){
     if(!empty($name) && !empty($balance) && $amount>=5){
 
         try{
+ $worldAcct = 000000000000;
+$query = "Select id from Accounts where account_number = '000000000000'"; //TODO fetch world account from DB so we can get the ID, I defaulted to -1 so you implement this portion. Do not hard code the value here.
+ echo "<br>$query<br>";
+$stmt = getDB()->prepare($query);
+$stmt->execute();
+echo var_export($stmt->errorInfo(), true);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$worldAcct = $result["id"];
+//end fetch world account id
 
-            $stmt = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
+            $stmt = getDB()->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
             $result = $stmt->execute(array(
-                ":acc_num" => $name,
-                ":accnum1" => "000000000000",
+                ":acc_num" => $worldAccount,
+                ":accnum1" => $id,
                 ":acctype" => "Withdraw",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
@@ -53,10 +60,10 @@ if(isset($_POST["Withdraw"])){
             }
             $balance =$balance * -1;
             echo $balance;
-            $stmt2 = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
+            $stmt2 = getDB()->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:acc1,:acc, :acctype,:balance,:exp_balance)");
             $result1 = $stmt2->execute(array(
-                ":acc1" => "000000000000",
-                ":acc" => $name,
+                ":acc1" => $worldAccount,
+                ":acc" => $id,
                 ":acctype" => "Withdraw",
                 ":balance" => $balance,
                 ":exp_balance" => $balance
@@ -66,7 +73,7 @@ if(isset($_POST["Withdraw"])){
                 var_dump($e);
                 $stmt2->debugDumpParams();
             }
-            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE act_src_id=:acc_num) where account_number=:acc_num");
+            $stmt = getDB()->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE act_src_id=:acc_num) where account_number=:acc_num");
             $result = $stmt->execute(array(
                 ":acc_num" => $name
             ));
