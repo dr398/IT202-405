@@ -18,7 +18,7 @@ session_start();
             <a href="register.php">Register</a>
         </li>
         <li>
-            <a href="create.php">Create an account </a>
+            <a href="Create.php">Create an account </a>
         </li>
          <li>
             <a href="search.php">Search account by name</a>
