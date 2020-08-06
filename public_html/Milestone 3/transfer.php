@@ -25,22 +25,20 @@ $account=$_GET["acc_num"];
             ?>
         </select>
         <label for="balance">Amount
-            <input type="number" id="balance" name="Balance" />
+            <input type="number" id="balance" name="balance" />
         </label>
         <input type="submit" name="Transfer" value="Transfer"/>
     </form>
 <?php
-require("common.inc.php");
-require("config.php");
+
 if(isset($_POST["Transfer"])){
 
-    $name = $_POST["Name"];
-    $name1 = $_POST["Name1"];
-    $balance = $_POST["Balance"];
+    $name = $_POST["name"];
+    $name1 = $_POST["name1"];
+    $balance = $_POST["balance"];
 
     $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
-    $db = new PDO($connection_string, $dbuser, $dbpass);
-    $stmt1 = $db->prepare("SELECT * FROM Accounts where account_number=:acc");
+    $stmt1 = getDB()->prepare("SELECT * FROM Accounts where account_number=:acc");
     $stmt1->execute(array(
         ":acc" => $name
     ));
@@ -53,6 +51,16 @@ if(isset($_POST["Transfer"])){
     $result = $stmt1->fetchAll();
     $amount1=$result[0]["Balance"];
     $amount1=$amount1+$balance;
+   
+$worldAcct = 000000000000;
+$query = "Select id from Accounts where account_number = '000000000000'"; //TODO fetch world account from DB so we can get the ID, I defaulted to -1 so you implement this portion. Do not hard code the value here.
+ echo "<br>$query<br>";
+$stmt = getDB()->prepare($query);
+$stmt->execute();
+echo var_export($stmt->errorInfo(), true);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$worldAcct = $result["id"];
+//end fetch world account id
 
     if(!empty($name) && !empty($balance) && $balance>0 &&  $amount>5){
         // echo "before major if 3a<br>";
@@ -61,12 +69,12 @@ if(isset($_POST["Transfer"])){
 
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
-            $db = new PDO($connection_string, $dbuser, $dbpass);
+         
             $balance=$balance * -1;
-            $stmt = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
+            $stmt = getDB()->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,type,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
             $result = $stmt->execute(array(
-                ":acc_num" => $name,
-                ":accnum1" => $name1,
+                ":acc_num" => $worldAccount,
+                ":accnum1" => $id,
                 ":acctype" => "Transfer",
                 ":balance" => $balance,
                 ":exp_balance" => $amount
@@ -80,10 +88,10 @@ if(isset($_POST["Transfer"])){
             $balance =$balance * -1;
             //echo $balance;
 
-            $stmt2 = $db->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,ype,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
+            $stmt2 = getDB()->prepare("INSERT INTO Transactions (act_src_id, act_dest_id,ype,amount,expected_total) VALUES (:acc_num,:accnum1, :acctype,:balance,:exp_balance)");
             $result1 = $stmt2->execute(array(
-                ":acc1" => $name1,
-                ":acc" => $name,
+                ":acc1" => $worldAccount1,
+                ":acc" => $id,
                 ":acctype" => "Transfer",
                 ":balance" => $balance,
                 ":exp_balance" => $amount1
@@ -95,7 +103,7 @@ if(isset($_POST["Transfer"])){
                 echo "setting AAAAAeee ".$e."<br>";
                 //echo var_export($e, true);
             }
-            $stmt = $db->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE acc_src_id=:accnum) where account_number=:acc_num");
+            $stmt = getDB()->prepare("update Accounts set Balance= (SELECT sum(Amount) FROM Transactions WHERE acc_src_id=:accnum) where account_number=:acc_num");
             $result = $stmt->execute(array(
                 ":acc_num" => $name
             ));
@@ -120,7 +128,7 @@ if(isset($_POST["Transfer"])){
         echo "Account name and amount must not be empty. Amount should be greater than zero. Account should have a five-dollar remaining balance.";
     }
 }
-$stmt = $db->prepare("SELECT * FROM Accounts");
+$stmt = getDB()->prepare("SELECT * FROM Accounts");
 $stmt->execute();
 ?>
 <?php include 'footerinfo.php';?>
