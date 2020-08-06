@@ -21,6 +21,9 @@ session_start();
             <a href="create.php">Create an account </a>
         </li>
          <li>
+            <a href="search.php">Search account by name</a>
+        </li>
+         <li>
             <a href="transaction.php">Make a Transaction</a>
         </li>
         <li>
