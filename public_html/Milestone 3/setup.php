@@ -1,7 +1,7 @@
 <?php
 require("common.inc.php");
 try{
-    $query = file_get_contents(__DIR__ . "/queries/Accounts_Table.sql");
+    $query = file_get_contents(__DIR__ . "/Accounts_Table.sql");
     if(isset($query) && !empty($query)) {
         $stmt = getDB()->prepare($query);
         $r = $stmt->execute();
