@@ -4,7 +4,7 @@
 </head>
 <?php
 require("common.inc.php");
-require("config.php");
+
 session_start();
 ?>
 <nav>
